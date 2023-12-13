@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Walmad.Business\Walmad.Business.csproj" />
+    <ProjectReference Include="..\Walmad.Core\Walmad.Core.csproj" />
+  </ItemGroup>
+
+</Project>
