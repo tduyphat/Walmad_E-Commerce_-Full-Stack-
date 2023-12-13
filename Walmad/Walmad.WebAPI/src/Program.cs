@@ -1,5 +1,6 @@
 using Walmad.Business.src.Abstraction;
 using Walmad.Business.src.Service;
+using Walmad.Business.src.Shared;
 using Walmad.Core.src.Abstraction;
 using Walmad.WebAPI.src.Repository;
 
@@ -16,6 +17,9 @@ builder.Services.AddSwaggerGen();
 // declare Services
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepo, UserRepo>();
+
+// add automapper dependency injection
+builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);
 
 var app = builder.Build();
 
