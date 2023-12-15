@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Walmad.Core.src.Abstraction;
 using Walmad.Core.src.Entity;
 using Walmad.Core.src.Parameter;
@@ -7,25 +8,30 @@ namespace Walmad.WebAPI.src.Repository;
 
 public class UserRepo : IUserRepo
 {
-    private List<User> _users;
+    private DbSet<User> _users;
+    private DatabaseContext _database;
 
-    public UserRepo()
+    public UserRepo(DatabaseContext database)
     {
-        _users = new DatabaseContext().Users;
+        _users = database.Users;
+        _database = database;
     }
 
     public User CreateOne(User user)
     {
         _users.Add(user);
+        _database.SaveChanges();
         return user;
     }
 
     public bool DeleteOne(Guid id)
     {
-        int foundIndex = _users.FindIndex(user => user.Id == id);
-        if (foundIndex != -1)
+        var userToRemove = _users.FirstOrDefault(user => user.Id == id);
+
+        if (userToRemove != null)
         {
-            _users.Remove(_users[foundIndex]);
+            _users.Remove(userToRemove);
+            _database.SaveChanges();
             return true;
         }
         else
@@ -41,12 +47,11 @@ public class UserRepo : IUserRepo
 
     public User GetOneById(Guid id)
     {
-
-        int foundIndex = _users.FindIndex(user => user.Id == id);
-        if (foundIndex != -1)
+        var userToRemove = _users.FirstOrDefault(user => user.Id == id);
+        if (userToRemove != null)
         {
 
-            return _users[foundIndex];
+            return userToRemove;
         }
         else
         {
@@ -56,14 +61,15 @@ public class UserRepo : IUserRepo
 
     public User UpdateOne(Guid id, User user)
     {
-        int foundIndex = _users.FindIndex(user => user.Id == id);
-        if (foundIndex != -1)
+        var userToRemove = _users.FirstOrDefault(user => user.Id == id);
+        if (userToRemove != null)
         {
 
-            _users[foundIndex].Name = user.Name;
-            _users[foundIndex].Email = user.Email;
-            _users[foundIndex].Avatar = user.Avatar;
-            return _users[foundIndex];
+            userToRemove.Name = user.Name;
+            userToRemove.Email = user.Email;
+            userToRemove.Avatar = user.Avatar;
+            _database.SaveChanges();
+            return userToRemove;
         }
         else
         {
