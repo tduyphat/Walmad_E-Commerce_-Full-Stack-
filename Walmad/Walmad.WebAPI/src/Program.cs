@@ -18,6 +18,10 @@ builder.Services.AddSwaggerGen();
 // declare Services
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepo, UserRepo>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductRepo, ProductRepo>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
 
 // add automapper dependency injection
 builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);

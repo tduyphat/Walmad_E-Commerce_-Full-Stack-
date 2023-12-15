@@ -26,11 +26,11 @@ public class UserRepo : IUserRepo
 
     public bool DeleteOne(Guid id)
     {
-        var userToRemove = _users.FirstOrDefault(user => user.Id == id);
+        var foundUser = _users.FirstOrDefault(user => user.Id == id);
 
-        if (userToRemove != null)
+        if (foundUser != null)
         {
-            _users.Remove(userToRemove);
+            _users.Remove(foundUser);
             _database.SaveChanges();
             return true;
         }
@@ -47,11 +47,11 @@ public class UserRepo : IUserRepo
 
     public User GetOneById(Guid id)
     {
-        var userToRemove = _users.FirstOrDefault(user => user.Id == id);
-        if (userToRemove != null)
+        var foundUser = _users.FirstOrDefault(user => user.Id == id);
+        if (foundUser != null)
         {
 
-            return userToRemove;
+            return foundUser;
         }
         else
         {
@@ -61,15 +61,15 @@ public class UserRepo : IUserRepo
 
     public User UpdateOne(Guid id, User user)
     {
-        var userToRemove = _users.FirstOrDefault(user => user.Id == id);
-        if (userToRemove != null)
+        var foundUser = _users.FirstOrDefault(user => user.Id == id);
+        if (foundUser != null)
         {
 
-            userToRemove.Name = user.Name;
-            userToRemove.Email = user.Email;
-            userToRemove.Avatar = user.Avatar;
+            foundUser.Name = user.Name;
+            foundUser.Email = user.Email;
+            foundUser.Avatar = user.Avatar;
             _database.SaveChanges();
-            return userToRemove;
+            return foundUser;
         }
         else
         {

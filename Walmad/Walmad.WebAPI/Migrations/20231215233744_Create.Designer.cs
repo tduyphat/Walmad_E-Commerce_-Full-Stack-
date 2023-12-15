@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Walmad.Core.src.Entity;
@@ -12,9 +13,11 @@ using Walmad.WebAPI.src.Database;
 namespace Walmad.WebAPI.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20231215233744_Create")]
+    partial class Create
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,6 +69,10 @@ namespace Walmad.WebAPI.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("category_id");
 
+                    b.Property<Guid?>("CategoryId1")
+                        .HasColumnType("uuid")
+                        .HasColumnName("category_id1");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
@@ -94,6 +101,9 @@ namespace Walmad.WebAPI.Migrations
                     b.HasIndex("CategoryId")
                         .HasDatabaseName("ix_products_category_id");
 
+                    b.HasIndex("CategoryId1")
+                        .HasDatabaseName("ix_products_category_id1");
+
                     b.ToTable("products", (string)null);
                 });
 
@@ -112,6 +122,10 @@ namespace Walmad.WebAPI.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("product_id");
 
+                    b.Property<Guid?>("ProductId1")
+                        .HasColumnType("uuid")
+                        .HasColumnName("product_id1");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("updated_at");
@@ -126,6 +140,9 @@ namespace Walmad.WebAPI.Migrations
 
                     b.HasIndex("ProductId")
                         .HasDatabaseName("ix_product_image_product_id");
+
+                    b.HasIndex("ProductId1")
+                        .HasDatabaseName("ix_product_image_product_id1");
 
                     b.ToTable("product_image", (string)null);
                 });
@@ -184,6 +201,12 @@ namespace Walmad.WebAPI.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_products_categories_category_id");
 
+                    b.HasOne("Walmad.Core.src.Entity.Category", null)
+                        .WithMany()
+                        .HasForeignKey("CategoryId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasConstraintName("fk_products_categories_category_id1");
+
                     b.Navigation("Category");
                 });
 
@@ -193,6 +216,12 @@ namespace Walmad.WebAPI.Migrations
                         .WithMany("Images")
                         .HasForeignKey("ProductId")
                         .HasConstraintName("fk_product_image_products_product_id");
+
+                    b.HasOne("Walmad.Core.src.Entity.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasConstraintName("fk_product_image_products_product_id1");
                 });
 
             modelBuilder.Entity("Walmad.Core.src.Entity.Product", b =>
