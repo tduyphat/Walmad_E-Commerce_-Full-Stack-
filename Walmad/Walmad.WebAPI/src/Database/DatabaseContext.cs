@@ -16,8 +16,8 @@ public class DatabaseContext : DbContext // builder pattern
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder
-        .UseNpgsql("Host=localhost;Database=walmad;Username=postgres")
-        .UseSnakeCaseNamingConvention();
+            .UseNpgsql(_config.GetConnectionString("LocalDb"))
+            .UseSnakeCaseNamingConvention();
         base.OnConfiguring(optionsBuilder);
     }
 

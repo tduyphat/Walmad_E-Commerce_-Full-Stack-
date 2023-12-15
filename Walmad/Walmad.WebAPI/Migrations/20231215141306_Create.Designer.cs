@@ -12,8 +12,8 @@ using Walmad.WebAPI.src.Database;
 namespace Walmad.WebAPI.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20231214161531_CreateDatabase")]
-    partial class CreateDatabase
+    [Migration("20231215141306_Create")]
+    partial class Create
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
