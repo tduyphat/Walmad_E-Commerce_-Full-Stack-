@@ -3,6 +3,7 @@ using Walmad.Business.src.Service;
 using Walmad.Business.src.Shared;
 using Walmad.Core.src.Abstraction;
 using Walmad.WebAPI.src.Database;
+using Walmad.WebAPI.src.Middleware;
 using Walmad.WebAPI.src.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +24,9 @@ builder.Services.AddScoped<IProductRepo, ProductRepo>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
 
+// error handler middleware
+builder.Services.AddTransient<ExceptionHandlerMiddleware>();
+
 // add automapper dependency injection
 builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);
 
@@ -30,6 +34,8 @@ builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);
 builder.Services.AddDbContext<DatabaseContext>();
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -39,6 +45,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
