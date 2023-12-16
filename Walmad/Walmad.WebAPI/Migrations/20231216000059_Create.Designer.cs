@@ -13,7 +13,7 @@ using Walmad.WebAPI.src.Database;
 namespace Walmad.WebAPI.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20231215233744_Create")]
+    [Migration("20231216000059_Create")]
     partial class Create
     {
         /// <inheritdoc />
@@ -35,7 +35,7 @@ namespace Walmad.WebAPI.Migrations
                         .HasColumnName("id");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("created_at");
 
                     b.Property<string>("Image")
@@ -49,7 +49,7 @@ namespace Walmad.WebAPI.Migrations
                         .HasColumnName("name");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("updated_at");
 
                     b.HasKey("Id")
@@ -69,12 +69,8 @@ namespace Walmad.WebAPI.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("category_id");
 
-                    b.Property<Guid?>("CategoryId1")
-                        .HasColumnType("uuid")
-                        .HasColumnName("category_id1");
-
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("created_at");
 
                     b.Property<string>("Description")
@@ -92,7 +88,7 @@ namespace Walmad.WebAPI.Migrations
                         .HasColumnName("title");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("updated_at");
 
                     b.HasKey("Id")
@@ -100,9 +96,6 @@ namespace Walmad.WebAPI.Migrations
 
                     b.HasIndex("CategoryId")
                         .HasDatabaseName("ix_products_category_id");
-
-                    b.HasIndex("CategoryId1")
-                        .HasDatabaseName("ix_products_category_id1");
 
                     b.ToTable("products", (string)null);
                 });
@@ -115,19 +108,15 @@ namespace Walmad.WebAPI.Migrations
                         .HasColumnName("id");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("created_at");
 
                     b.Property<Guid?>("ProductId")
                         .HasColumnType("uuid")
                         .HasColumnName("product_id");
 
-                    b.Property<Guid?>("ProductId1")
-                        .HasColumnType("uuid")
-                        .HasColumnName("product_id1");
-
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("updated_at");
 
                     b.Property<string>("Url")
@@ -140,9 +129,6 @@ namespace Walmad.WebAPI.Migrations
 
                     b.HasIndex("ProductId")
                         .HasDatabaseName("ix_product_image_product_id");
-
-                    b.HasIndex("ProductId1")
-                        .HasDatabaseName("ix_product_image_product_id1");
 
                     b.ToTable("product_image", (string)null);
                 });
@@ -160,7 +146,7 @@ namespace Walmad.WebAPI.Migrations
                         .HasColumnName("avatar");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("created_at");
 
                     b.Property<string>("Email")
@@ -183,7 +169,7 @@ namespace Walmad.WebAPI.Migrations
                         .HasColumnName("role");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("updated_at");
 
                     b.HasKey("Id")
@@ -201,12 +187,6 @@ namespace Walmad.WebAPI.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_products_categories_category_id");
 
-                    b.HasOne("Walmad.Core.src.Entity.Category", null)
-                        .WithMany()
-                        .HasForeignKey("CategoryId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .HasConstraintName("fk_products_categories_category_id1");
-
                     b.Navigation("Category");
                 });
 
@@ -216,12 +196,6 @@ namespace Walmad.WebAPI.Migrations
                         .WithMany("Images")
                         .HasForeignKey("ProductId")
                         .HasConstraintName("fk_product_image_products_product_id");
-
-                    b.HasOne("Walmad.Core.src.Entity.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .HasConstraintName("fk_product_image_products_product_id1");
                 });
 
             modelBuilder.Entity("Walmad.Core.src.Entity.Product", b =>

@@ -7,4 +7,5 @@ public class Product : BaseEntity
     public string Description { get; set; }
     public Category Category { get; set; }
     public IEnumerable<ProductImage> Images { get; set; }
+    public IEnumerable<Review> Reviews { get; set; }
 }

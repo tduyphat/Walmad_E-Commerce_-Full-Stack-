@@ -6,9 +6,9 @@ namespace Walmad.Business.src.Abstraction;
 
 public interface ICategoryService
 {
-    IEnumerable<Category> GetAll();
-    Category GetOneById(Guid id);
-    Category CreateOne(CategoryCreateAndUpdateDTO categoryCreateAndUpdateDto);
-    Category UpdateOne(Guid id, CategoryCreateAndUpdateDTO categoryCreateAndUpdateDto);
+    IEnumerable<CategoryReadDTO> GetAll();
+    CategoryReadDTO GetOneById(Guid id);
+    CategoryReadDTO CreateOne(CategoryCreateAndUpdateDTO categoryCreateAndUpdateDto);
+    CategoryReadDTO UpdateOne(Guid id, CategoryCreateAndUpdateDTO categoryCreateAndUpdateDto);
     bool DeleteOne(Guid id);
 }

@@ -17,28 +17,28 @@ public class CategoryService : ICategoryService
     _mapper = mapper;
   }
 
-  public IEnumerable<Category> GetAll()
+  public IEnumerable<CategoryReadDTO> GetAll()
   {
     var result = _categoryRepo.GetAll();
-    return result;
+    return _mapper.Map<IEnumerable<Category>, IEnumerable<CategoryReadDTO>>(result);
   }
 
-  public Category GetOneById(Guid id)
+  public CategoryReadDTO GetOneById(Guid id)
   {
     var result = _categoryRepo.GetOneById(id);
-    return result;
+    return _mapper.Map<Category, CategoryReadDTO>(result);
   }
 
-  public Category CreateOne(CategoryCreateAndUpdateDTO categoryCreateAndUpdateDto)
+  public CategoryReadDTO CreateOne(CategoryCreateAndUpdateDTO categoryCreateAndUpdateDto)
   {
     var result = _categoryRepo.CreateOne(_mapper.Map<CategoryCreateAndUpdateDTO, Category>(categoryCreateAndUpdateDto));
-    return result;
+    return _mapper.Map<Category, CategoryReadDTO>(result);
   }
 
-  public Category UpdateOne(Guid id, CategoryCreateAndUpdateDTO categoryCreateAndUpdateDto)
+  public CategoryReadDTO UpdateOne(Guid id, CategoryCreateAndUpdateDTO categoryCreateAndUpdateDto)
   {
     var result = _categoryRepo.UpdateOne(id, _mapper.Map<CategoryCreateAndUpdateDTO, Category>(categoryCreateAndUpdateDto));
-    return result;
+    return _mapper.Map<Category, CategoryReadDTO>(result);
   }
 
   public bool DeleteOne(Guid id)

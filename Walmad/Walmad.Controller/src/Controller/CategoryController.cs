@@ -18,31 +18,31 @@ public class CategoryController : ControllerBase
   }
 
   [HttpGet()]
-  public ActionResult<IEnumerable<Category>> GetAll()
+  public ActionResult<IEnumerable<CategoryReadDTO>> GetAll()
   {
     return Ok(_categoryService.GetAll());
   }
 
   [HttpGet("{id:Guid}")]
-  public ActionResult<Category> GetOneById([FromRoute] Guid id)
+  public ActionResult<CategoryReadDTO> GetOneById([FromRoute] Guid id)
   {
     return Ok(_categoryService.GetOneById(id));
   }
 
   [HttpPost()]
-  public ActionResult<Category> CreateOne([FromBody] CategoryCreateAndUpdateDTO categoryCreateAndUpdateDto)
+  public ActionResult<CategoryReadDTO> CreateOne([FromBody] CategoryCreateAndUpdateDTO categoryCreateAndUpdateDto)
   {
     return CreatedAtAction(nameof(CreateOne), _categoryService.CreateOne(categoryCreateAndUpdateDto));
   }
 
   [HttpPatch("{id:Guid}")]
-  public ActionResult<Category> UpdateOne([FromRoute] Guid id, CategoryCreateAndUpdateDTO categoryCreateAndUpdateDto)
+  public ActionResult<CategoryReadDTO> UpdateOne([FromRoute] Guid id, CategoryCreateAndUpdateDTO categoryCreateAndUpdateDto)
   {
     return Ok(_categoryService.UpdateOne(id, categoryCreateAndUpdateDto));
   }
 
   [HttpDelete("{id:Guid}")]
-  public ActionResult<Category> DeleteOne([FromRoute] Guid id)
+  public ActionResult<CategoryReadDTO> DeleteOne([FromRoute] Guid id)
   {
     return Ok(_categoryService.DeleteOne(id));
   }

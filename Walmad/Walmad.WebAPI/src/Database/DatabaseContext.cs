@@ -13,7 +13,7 @@ public class DatabaseContext : DbContext // builder pattern
 
     static DatabaseContext()
     {
-        AppContext.SetSwitch("Npsql.EnableLegacyTimestampBehavior", true);
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
     }
 
     public DatabaseContext(DbContextOptions options, IConfiguration config) : base(options)

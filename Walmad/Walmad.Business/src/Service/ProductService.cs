@@ -18,28 +18,28 @@ public class ProductService : IProductService
     _mapper = mapper;
   }
 
-  public IEnumerable<Product> GetAll(GetAllParams options)
+  public IEnumerable<ProductReadDTO> GetAll(GetAllParams options)
   {
     var result = _productRepo.GetAll(options);
-    return result;
+    return _mapper.Map<IEnumerable<Product>, IEnumerable<ProductReadDTO>>(result);
   }
 
-  public Product GetOneById(Guid id)
+  public ProductReadDTO GetOneById(Guid id)
   {
     var result = _productRepo.GetOneById(id);
-    return result;
+    return _mapper.Map<Product, ProductReadDTO>(result);
   }
 
-  public Product CreateOne(ProductCreateAndUpdateDTO productCreateAndUpdateDto)
+  public ProductReadDTO CreateOne(ProductCreateAndUpdateDTO productCreateAndUpdateDto)
   {
     var result = _productRepo.CreateOne(_mapper.Map<ProductCreateAndUpdateDTO, Product>(productCreateAndUpdateDto));
-    return result;
+    return _mapper.Map<Product, ProductReadDTO>(result);
   }
 
-  public Product UpdateOne(Guid id, ProductCreateAndUpdateDTO productCreateAndUpdateDto)
+  public ProductReadDTO UpdateOne(Guid id, ProductCreateAndUpdateDTO productCreateAndUpdateDto)
   {
     var result = _productRepo.UpdateOne(id, _mapper.Map<ProductCreateAndUpdateDTO, Product>(productCreateAndUpdateDto));
-    return result;
+    return _mapper.Map<Product, ProductReadDTO>(result);
   }
 
   public bool DeleteOne(Guid id)

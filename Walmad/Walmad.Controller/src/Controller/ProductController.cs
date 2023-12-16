@@ -18,25 +18,25 @@ public class ProductController : ControllerBase
   }
 
   [HttpGet()]
-  public ActionResult<IEnumerable<Product>> GetAll([FromQuery] GetAllParams options)
+  public ActionResult<IEnumerable<ProductReadDTO>> GetAll([FromQuery] GetAllParams options)
   {
     return Ok(_productService.GetAll(options));
   }
 
   [HttpGet("{id:Guid}")]
-  public ActionResult<Product> GetOneById([FromRoute] Guid id)
+  public ActionResult<ProductReadDTO> GetOneById([FromRoute] Guid id)
   {
     return Ok(_productService.GetOneById(id));
   }
 
   [HttpPost()]
-  public ActionResult<Product> CreateOne([FromBody] ProductCreateAndUpdateDTO productCreateAndUpdateDto)
+  public ActionResult<ProductReadDTO> CreateOne([FromBody] ProductCreateAndUpdateDTO productCreateAndUpdateDto)
   {
     return CreatedAtAction(nameof(CreateOne), _productService.CreateOne(productCreateAndUpdateDto));
   }
 
   [HttpPatch("{id:Guid}")]
-  public ActionResult<Product> UpdateOne([FromRoute] Guid id, ProductCreateAndUpdateDTO productCreateAndUpdateDto)
+  public ActionResult<ProductReadDTO> UpdateOne([FromRoute] Guid id, ProductCreateAndUpdateDTO productCreateAndUpdateDto)
   {
     return Ok(_productService.UpdateOne(id, productCreateAndUpdateDto));
   }
