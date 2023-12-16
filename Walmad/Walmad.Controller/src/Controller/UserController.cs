@@ -35,7 +35,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPatch("{id:Guid}")]
-    public ActionResult<UserReadDTO> UpdateOne([FromRoute] Guid id, UserUpdateDTO userUpdateDto)
+    public ActionResult<UserReadDTO> UpdateOne([FromRoute] Guid id, [FromBody] UserUpdateDTO userUpdateDto)
     {
         return Ok(_userService.UpdateOne(id, userUpdateDto));
     }

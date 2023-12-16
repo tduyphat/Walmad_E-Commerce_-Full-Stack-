@@ -16,5 +16,6 @@ public class MapperProfile : Profile
         CreateMap<ProductImage, ProductImageReadDTO>();
         CreateMap<CategoryCreateAndUpdateDTO, Category>();
         CreateMap<ProductCreateAndUpdateDTO, Product>();
+        CreateMap<LoginDTO, User>();
     }
 }

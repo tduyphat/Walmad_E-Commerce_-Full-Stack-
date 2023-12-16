@@ -10,4 +10,6 @@ public interface IUserRepo
     User CreateOne(User user);
     User UpdateOne(Guid id, User user);
     bool DeleteOne(Guid id);
+    User FindUserByCredentials(User user);
+    string GenerateToken(User user);
 }
