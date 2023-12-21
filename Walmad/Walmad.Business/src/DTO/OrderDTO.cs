@@ -11,7 +11,7 @@ public class OrderReadDTO : BaseEntity
 
 public class OrderCreateDTO
 {
-    public User User { get; set; }
+    public Guid UserId { get; set; }
     public IEnumerable<OrderProductCreateDTO> OrderProducts { get; set; }
     public OrderStatus OrderStatus { get; set; } = OrderStatus.Pending;
 }

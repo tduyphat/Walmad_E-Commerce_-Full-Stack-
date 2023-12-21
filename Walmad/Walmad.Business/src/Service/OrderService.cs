@@ -21,17 +21,30 @@ public class OrderService : BaseService<Order, OrderReadDTO, OrderCreateDTO, Ord
     public override OrderReadDTO CreateOne(OrderCreateDTO orderCreateDto)
     {
         var newOrder = _mapper.Map<OrderCreateDTO, Order>(orderCreateDto);
-        foreach(var orderProduct in orderCreateDto.OrderProducts)
+        var foundUser = _userRepo.GetOneById(orderCreateDto.UserId);
+        if (foundUser is not null)
         {
-            var foundProduct = _productRepo.GetOneById(orderProduct.ProductId);
-            if (foundProduct is not null)
+            newOrder.User = foundUser;
+            foreach (var orderProduct in orderCreateDto.OrderProducts)
             {
-                var newOrderProduct = new OrderProduct { Product = foundProduct, Quantity = orderProduct.Quantity};
-                newOrder.OrderProducts.ToList().Add(newOrderProduct);
+                var foundProduct = _productRepo.GetOneById(orderProduct.ProductId);
+                if (foundProduct is not null)
+                {
+                    var newOrderProduct = new OrderProduct { Product = foundProduct, Quantity = orderProduct.Quantity };
+                    newOrder.OrderProducts.ToList().Add(newOrderProduct);
+                }
+                else
+                {
+                    throw CustomExeption.NotFoundException();
+                }
             }
+            var result = _repo.CreateOne(newOrder);
+            return _mapper.Map<Order, OrderReadDTO>(result);
         }
-        var result = _repo.CreateOne(newOrder);
-        return _mapper.Map<Order, OrderReadDTO>(result);
+        else
+        {
+            throw CustomExeption.NotFoundException();
+        }
     }
 
     public IEnumerable<OrderReadDTO> GetByUser(Guid userId)
@@ -39,12 +52,12 @@ public class OrderService : BaseService<Order, OrderReadDTO, OrderCreateDTO, Ord
         var foundUser = _userRepo.GetOneById(userId);
         if (foundUser is not null)
         {
-          var result = _repo.GetByUser(userId);
-          return _mapper.Map<IEnumerable<Order>, IEnumerable<OrderReadDTO>>(result);
+            var result = _repo.GetByUser(userId);
+            return _mapper.Map<IEnumerable<Order>, IEnumerable<OrderReadDTO>>(result);
         }
         else
         {
-          throw CustomExeption.NotFoundException();
+            throw CustomExeption.NotFoundException();
         }
     }
 }

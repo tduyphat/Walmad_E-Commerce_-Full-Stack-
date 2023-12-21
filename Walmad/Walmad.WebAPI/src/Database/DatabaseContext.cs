@@ -42,9 +42,9 @@ public class DatabaseContext : DbContext // builder pattern
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasPostgresEnum<Role>();
-        modelBuilder.Entity<User>(entity => entity.Property(e => e.Role).HasColumnType("role"));
+        // modelBuilder.Entity<User>(entity => entity.Property(e => e.Role).HasColumnType("role"));
         modelBuilder.HasPostgresEnum<OrderStatus>();
-        modelBuilder.Entity<Order>(entity => entity.Property(e => e.OrderStatus).HasColumnType("orderStatus"));
+        // modelBuilder.Entity<Order>(entity => entity.Property(e => e.OrderStatus).HasColumnType("order_status"));
         // modelBuilder.Entity<Category>().HasMany<Product>().WithOne().OnDelete(DeleteBehavior.Cascade);
         // modelBuilder.Entity<Product>().HasMany<ProductImage>().WithOne().OnDelete(DeleteBehavior.Cascade);
     }

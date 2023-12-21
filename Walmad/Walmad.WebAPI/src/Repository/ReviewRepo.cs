@@ -12,6 +12,6 @@ public class ReviewRepo : BaseRepo<Review>, IReviewRepo
 
     public IEnumerable<Review> GetByProduct(Guid productId)
     {
-        throw new NotImplementedException();
+        return _data.Where(reviews => reviews.Product.Id == productId);
     }
 }

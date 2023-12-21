@@ -62,7 +62,7 @@ where TRepo : IBaseRepo<T>
         var foundItem = _repo.GetOneById(id);
         if (foundItem is not null)
         {
-            var result = _repo.UpdateOne(_mapper.Map<TUpdateDTO, T>(updateObject));
+            var result = _repo.UpdateOne(_mapper.Map(updateObject, foundItem));
             return _mapper.Map<T, TReadDTO>(result);
         }
         else

@@ -21,21 +21,17 @@ public class AuthService : IAuthService
     _mapper = mapper;
   }
 
-    public UserReadDTO GetCurrentProfile(string token)
+  public UserReadDTO GetCurrentProfile(Guid id)
+  {
+    var foundUser = _userRepo.GetOneById(id);
+    if (foundUser != null)
     {
-        var extractedId = _tokenService.GetCurrentProfile(token);
-        var foundUser = _userRepo.GetOneById(extractedId);
-        if (foundUser is not null)
-        {
-          return _mapper.Map<User, UserReadDTO>(foundUser);
-        }
-        else
-        {
-          throw CustomExeption.NotFoundException();
-        }
+      return _mapper.Map<User, UserReadDTO>(foundUser);
     }
+    throw CustomExeption.NotFoundException();
+  }
 
-    public string Login(Credentials credentials)
+  public string Login(Credentials credentials)
   {
     var foundByEmail = _userRepo.FindByEmail(credentials.Email);
     if (foundByEmail is null)

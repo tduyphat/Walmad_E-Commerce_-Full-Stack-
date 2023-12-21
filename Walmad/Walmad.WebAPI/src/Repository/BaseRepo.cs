@@ -28,10 +28,6 @@ public class BaseRepo<T> : IBaseRepo<T> where T : BaseEntity
 
   public virtual bool DeleteOne(T deleteObject)
   {
-    if (_data.Find(deleteObject) is not null)
-    {
-      return false;
-    }
     _data.Remove(deleteObject);
     _databaseContext.SaveChanges();
     return true;
@@ -49,10 +45,6 @@ public class BaseRepo<T> : IBaseRepo<T> where T : BaseEntity
 
   public virtual T UpdateOne(T updateObject)
   {
-    if (_data.Find(updateObject) is null)
-    {
-      throw CustomExeption.NotFoundException();
-    }
     _data.Update(updateObject);
     _databaseContext.SaveChanges();
     return updateObject;

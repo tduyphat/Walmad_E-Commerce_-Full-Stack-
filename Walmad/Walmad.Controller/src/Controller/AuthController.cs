@@ -1,3 +1,5 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Walmad.Business.src.Abstraction;
 using Walmad.Business.src.DTO;
@@ -22,9 +24,11 @@ public class AuthController : ControllerBase
         return _authService.Login(credentials);
     }
 
-    [HttpPost("profile")]
-    public ActionResult<UserReadDTO> GetCurrentProfile([FromHeader] string token)
+    [Authorize]
+    [HttpGet("profile")]
+    public ActionResult<UserReadDTO> GetCurrentProfile()
     {
-        return _authService.GetCurrentProfile(token);
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+        return Ok(_authService.GetCurrentProfile(Guid.Parse(userId)));
     }
 }

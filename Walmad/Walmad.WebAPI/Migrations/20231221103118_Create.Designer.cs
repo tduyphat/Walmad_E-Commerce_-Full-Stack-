@@ -13,7 +13,7 @@ using Walmad.WebAPI.src.Database;
 namespace Walmad.WebAPI.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20231221094808_Create")]
+    [Migration("20231221103118_Create")]
     partial class Create
     {
         /// <inheritdoc />
@@ -112,7 +112,7 @@ namespace Walmad.WebAPI.Migrations
                         .HasColumnName("created_at");
 
                     b.Property<OrderStatus>("OrderStatus")
-                        .HasColumnType("orderstatus")
+                        .HasColumnType("order_status")
                         .HasColumnName("order_status");
 
                     b.Property<DateTime>("UpdatedAt")

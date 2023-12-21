@@ -109,7 +109,7 @@ namespace Walmad.WebAPI.Migrations
                         .HasColumnName("created_at");
 
                     b.Property<OrderStatus>("OrderStatus")
-                        .HasColumnType("orderstatus")
+                        .HasColumnType("order_status")
                         .HasColumnName("order_status");
 
                     b.Property<DateTime>("UpdatedAt")

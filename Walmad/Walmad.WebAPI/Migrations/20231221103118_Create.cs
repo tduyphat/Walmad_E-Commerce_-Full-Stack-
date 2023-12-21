@@ -102,7 +102,7 @@ namespace Walmad.WebAPI.Migrations
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
                     user_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    order_status = table.Column<OrderStatus>(type: "orderstatus", nullable: false),
+                    order_status = table.Column<OrderStatus>(type: "order_status", nullable: false),
                     created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },

@@ -32,6 +32,22 @@ public class ProductService : BaseService<Product, ProductReadDTO, ProductCreate
         }
     }
 
+    public override ProductReadDTO UpdateOne(Guid id, ProductUpdateDTO productUpdateDto)
+    {
+        var foundCategory = _categoryRepo.GetOneById(productUpdateDto.categoryId);
+        if (foundCategory is not null)
+        {
+          var updateProduct = _mapper.Map<ProductUpdateDTO, Product>(productUpdateDto);
+          updateProduct.Category = foundCategory;
+          var result = _repo.UpdateOne(updateProduct);
+          return _mapper.Map<Product, ProductReadDTO>(result);
+        }
+        else
+        {
+          throw CustomExeption.NotFoundException();
+        }
+    }
+
     public IEnumerable<ProductReadDTO> GetByCategory(Guid categoryId)
     {
         var foundCategory = _categoryRepo.GetOneById(categoryId);
