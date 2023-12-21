@@ -1,13 +1,17 @@
+using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Walmad.Business.src.Abstraction;
 using Walmad.Business.src.Service;
 using Walmad.Business.src.Shared;
 using Walmad.Core.src.Abstraction;
+using Walmad.WebAPI.src.Authorization;
 using Walmad.WebAPI.src.Database;
 using Walmad.WebAPI.src.Middleware;
 using Walmad.WebAPI.src.Repository;
+using Walmad.WebAPI.src.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +30,10 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductRepo, ProductRepo>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
-builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+
+builder.Services.AddScoped<CheckAddressHandler>();
 
 // error handler middleware
 builder.Services.AddTransient<ExceptionHandlerMiddleware>();
@@ -38,20 +45,27 @@ builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);
 builder.Services.AddDbContext<DatabaseContext>();
 
 // config authentication
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o =>
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
     {
-        o.TokenValidationParameters = new TokenValidationParameters
+        options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             ValidAudience = builder.Configuration["Jwt:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey
-            (Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
+            (Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)),
             ValidateIssuer = true,
             ValidateAudience = true,
             ValidateLifetime = false,
             ValidateIssuerSigningKey = true
         };
     });
+
+// config authorization
+builder.Services.AddAuthorization(policy =>
+{
+    policy.AddPolicy("SuperAdmin", policy => policy.RequireClaim(ClaimTypes.Email, "jim2qwdqwd@gmail.com"));
+    policy.AddPolicy("MaxLength", policy => policy.AddRequirements(new CheckAddressRequirement(10)));
+});
 
 var app = builder.Build();
 

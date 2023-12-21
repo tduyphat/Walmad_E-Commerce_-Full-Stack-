@@ -8,42 +8,27 @@ namespace Walmad.Controller.src.Controller;
 
 [ApiController]
 [Route("api/v1/[controller]s")]
-public class CategoryController : ControllerBase
+public class CategoryController : BaseController<Category, CategoryReadDTO, CategoryCreateDTO, CategoryUpdateDTO, ICategoryService>
 {
-  private ICategoryService _categoryService;
+    public CategoryController(ICategoryService service) : base(service)  
+    {
+    }
 
-  public CategoryController(ICategoryService categoryService)
-  {
-    _categoryService = categoryService;
-  }
+    [HttpPost()]
+    public override ActionResult<CategoryReadDTO> CreateOne([FromBody] CategoryCreateDTO categoryCreateDto)
+    {
+        return CreatedAtAction(nameof(CreateOne), _service.CreateOne(categoryCreateDto));
+    }
 
-  [HttpGet()]
-  public ActionResult<IEnumerable<CategoryReadDTO>> GetAll()
-  {
-    return Ok(_categoryService.GetAll());
-  }
+    [HttpDelete("{id:guid}")]
+    public override ActionResult<bool> DeleteOne([FromRoute] Guid id)
+    {
+        return Ok(_service.DeleteOne(id));
+    }
 
-  [HttpGet("{id:Guid}")]
-  public ActionResult<CategoryReadDTO> GetOneById([FromRoute] Guid id)
-  {
-    return Ok(_categoryService.GetOneById(id));
-  }
-
-  [HttpPost()]
-  public ActionResult<CategoryReadDTO> CreateOne([FromBody] CategoryCreateAndUpdateDTO categoryCreateAndUpdateDto)
-  {
-    return CreatedAtAction(nameof(CreateOne), _categoryService.CreateOne(categoryCreateAndUpdateDto));
-  }
-
-  [HttpPatch("{id:Guid}")]
-  public ActionResult<CategoryReadDTO> UpdateOne([FromRoute] Guid id, CategoryCreateAndUpdateDTO categoryCreateAndUpdateDto)
-  {
-    return Ok(_categoryService.UpdateOne(id, categoryCreateAndUpdateDto));
-  }
-
-  [HttpDelete("{id:Guid}")]
-  public ActionResult<CategoryReadDTO> DeleteOne([FromRoute] Guid id)
-  {
-    return Ok(_categoryService.DeleteOne(id));
-  }
+    [HttpPatch("{id:guid}")]
+    public override ActionResult<CategoryReadDTO> UpdateOne([FromRoute] Guid id, [FromBody] CategoryUpdateDTO categoryUpdateDto)
+    {
+        return Ok(_service.UpdateOne(id, categoryUpdateDto));
+    }
 }

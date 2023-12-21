@@ -39,6 +39,7 @@ namespace Walmad.WebAPI.Migrations
                     email = table.Column<string>(type: "text", nullable: false),
                     password = table.Column<string>(type: "text", nullable: false),
                     avatar = table.Column<string>(type: "text", nullable: false),
+                    salt = table.Column<byte[]>(type: "bytea", nullable: false),
                     role = table.Column<Role>(type: "role", nullable: false),
                     created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
@@ -72,6 +73,28 @@ namespace Walmad.WebAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "addresses",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    house_number = table.Column<string>(type: "text", nullable: false),
+                    street = table.Column<string>(type: "text", nullable: false),
+                    post_code = table.Column<int>(type: "integer", nullable: false),
+                    user_id = table.Column<Guid>(type: "uuid", nullable: true),
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_addresses", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_addresses_users_user_id",
+                        column: x => x.user_id,
+                        principalTable: "users",
+                        principalColumn: "id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "product_image",
                 columns: table => new
                 {
@@ -91,6 +114,39 @@ namespace Walmad.WebAPI.Migrations
                         principalColumn: "id");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "review",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    rating = table.Column<byte>(type: "smallint", nullable: false),
+                    content = table.Column<string>(type: "text", nullable: false),
+                    user_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    product_id = table.Column<Guid>(type: "uuid", nullable: true),
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_review", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_review_products_product_id",
+                        column: x => x.product_id,
+                        principalTable: "products",
+                        principalColumn: "id");
+                    table.ForeignKey(
+                        name: "fk_review_users_user_id",
+                        column: x => x.user_id,
+                        principalTable: "users",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "ix_addresses_user_id",
+                table: "addresses",
+                column: "user_id");
+
             migrationBuilder.CreateIndex(
                 name: "ix_product_image_product_id",
                 table: "product_image",
@@ -100,19 +156,35 @@ namespace Walmad.WebAPI.Migrations
                 name: "ix_products_category_id",
                 table: "products",
                 column: "category_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_review_product_id",
+                table: "review",
+                column: "product_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_review_user_id",
+                table: "review",
+                column: "user_id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "addresses");
+
+            migrationBuilder.DropTable(
                 name: "product_image");
 
             migrationBuilder.DropTable(
-                name: "users");
+                name: "review");
 
             migrationBuilder.DropTable(
                 name: "products");
+
+            migrationBuilder.DropTable(
+                name: "users");
 
             migrationBuilder.DropTable(
                 name: "categories");

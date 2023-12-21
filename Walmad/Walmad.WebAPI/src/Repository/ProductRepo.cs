@@ -40,12 +40,27 @@ public class ProductRepo : IProductRepo
     }
   }
 
-  public IEnumerable<Product> GetAll(GetAllParams options)
+    public bool DeleteOne(Product deleteObject)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<Product> GetAll(GetAllParams options)
   {
     return _products.Skip(options.Offset).Take(options.Limit);
   }
 
-  public Product GetOneById(Guid id)
+    public IEnumerable<Product> GetByCategory(Guid categoryId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<Product> GetMostPurchased(int topNumber)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Product GetOneById(Guid id)
   {
     var foundProduct = _products.FirstOrDefault(product => product.Id == id);
     if (foundProduct != null)
@@ -77,4 +92,9 @@ public class ProductRepo : IProductRepo
       throw new NotImplementedException();
     }
   }
+
+    public Product UpdateOne(Product updateObject)
+    {
+        throw new NotImplementedException();
+    }
 }

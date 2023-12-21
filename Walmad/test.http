@@ -1,9 +1,0 @@
-POST http://localhost:5258/api/v1/users HTTP/1.1
-Content-Type: application/json
-
-{
-  "name": "jim",
-  "email": "jim@gmail.com",
-  "password": "1234",
-  "avatar": "www.jim.com"
-}

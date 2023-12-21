@@ -13,7 +13,7 @@ using Walmad.WebAPI.src.Database;
 namespace Walmad.WebAPI.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20231216000059_Create")]
+    [Migration("20231218230355_Create")]
     partial class Create
     {
         /// <inheritdoc />
@@ -26,6 +26,48 @@ namespace Walmad.WebAPI.Migrations
 
             NpgsqlModelBuilderExtensions.HasPostgresEnum(modelBuilder, "role", new[] { "admin", "customer" });
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("Walmad.Core.src.Entity.Address", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<string>("HouseNumber")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("house_number");
+
+                    b.Property<int>("PostCode")
+                        .HasColumnType("integer")
+                        .HasColumnName("post_code");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("street");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("updated_at");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_addresses");
+
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_addresses_user_id");
+
+                    b.ToTable("addresses", (string)null);
+                });
 
             modelBuilder.Entity("Walmad.Core.src.Entity.Category", b =>
                 {
@@ -133,6 +175,50 @@ namespace Walmad.WebAPI.Migrations
                     b.ToTable("product_image", (string)null);
                 });
 
+            modelBuilder.Entity("Walmad.Core.src.Entity.Review", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("content");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<Guid?>("ProductId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("product_id");
+
+                    b.Property<byte>("Rating")
+                        .HasColumnType("smallint")
+                        .HasColumnName("rating");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("updated_at");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_review");
+
+                    b.HasIndex("ProductId")
+                        .HasDatabaseName("ix_review_product_id");
+
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_review_user_id");
+
+                    b.ToTable("review", (string)null);
+                });
+
             modelBuilder.Entity("Walmad.Core.src.Entity.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -168,6 +254,11 @@ namespace Walmad.WebAPI.Migrations
                         .HasColumnType("role")
                         .HasColumnName("role");
 
+                    b.Property<byte[]>("Salt")
+                        .IsRequired()
+                        .HasColumnType("bytea")
+                        .HasColumnName("salt");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("updated_at");
@@ -176,6 +267,14 @@ namespace Walmad.WebAPI.Migrations
                         .HasName("pk_users");
 
                     b.ToTable("users", (string)null);
+                });
+
+            modelBuilder.Entity("Walmad.Core.src.Entity.Address", b =>
+                {
+                    b.HasOne("Walmad.Core.src.Entity.User", null)
+                        .WithMany("Addresses")
+                        .HasForeignKey("UserId")
+                        .HasConstraintName("fk_addresses_users_user_id");
                 });
 
             modelBuilder.Entity("Walmad.Core.src.Entity.Product", b =>
@@ -198,9 +297,33 @@ namespace Walmad.WebAPI.Migrations
                         .HasConstraintName("fk_product_image_products_product_id");
                 });
 
+            modelBuilder.Entity("Walmad.Core.src.Entity.Review", b =>
+                {
+                    b.HasOne("Walmad.Core.src.Entity.Product", null)
+                        .WithMany("Reviews")
+                        .HasForeignKey("ProductId")
+                        .HasConstraintName("fk_review_products_product_id");
+
+                    b.HasOne("Walmad.Core.src.Entity.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_review_users_user_id");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Walmad.Core.src.Entity.Product", b =>
                 {
                     b.Navigation("Images");
+
+                    b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("Walmad.Core.src.Entity.User", b =>
+                {
+                    b.Navigation("Addresses");
                 });
 #pragma warning restore 612, 618
         }

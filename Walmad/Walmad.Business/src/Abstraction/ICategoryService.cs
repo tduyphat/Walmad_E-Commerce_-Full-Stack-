@@ -4,11 +4,6 @@ using Walmad.Core.src.Parameter;
 
 namespace Walmad.Business.src.Abstraction;
 
-public interface ICategoryService
+public interface ICategoryService : IBaseService<Category, CategoryReadDTO, CategoryCreateDTO, CategoryUpdateDTO>
 {
-    IEnumerable<CategoryReadDTO> GetAll();
-    CategoryReadDTO GetOneById(Guid id);
-    CategoryReadDTO CreateOne(CategoryCreateAndUpdateDTO categoryCreateAndUpdateDto);
-    CategoryReadDTO UpdateOne(Guid id, CategoryCreateAndUpdateDTO categoryCreateAndUpdateDto);
-    bool DeleteOne(Guid id);
 }

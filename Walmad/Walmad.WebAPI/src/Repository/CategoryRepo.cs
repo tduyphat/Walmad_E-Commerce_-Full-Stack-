@@ -40,9 +40,14 @@ public class CategoryRepo : ICategoryRepo
     }
   }
 
-  public IEnumerable<Category> GetAll()
+    public bool DeleteOne(Category deleteObject)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<Category> GetAll(GetAllParams options)
   {
-    return _categories;
+    return _categories.Skip(options.Offset).Take(options.Limit);
   }
 
   public Category GetOneById(Guid id)
@@ -75,4 +80,9 @@ public class CategoryRepo : ICategoryRepo
       throw new NotImplementedException();
     }
   }
+
+    public Category UpdateOne(Category updateObject)
+    {
+        throw new NotImplementedException();
+    }
 }

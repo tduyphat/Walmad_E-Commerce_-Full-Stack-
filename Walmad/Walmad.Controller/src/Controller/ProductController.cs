@@ -2,48 +2,48 @@ using Microsoft.AspNetCore.Mvc;
 using Walmad.Business.src.Abstraction;
 using Walmad.Business.src.DTO;
 using Walmad.Core.src.Entity;
-using Walmad.Core.src.Parameter;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Walmad.Controller.src.Controller;
 
 [ApiController]
 [Route("api/v1/[controller]s")]
-public class ProductController : ControllerBase
+public class ProductController : BaseController<Product, ProductReadDTO, ProductCreateDTO, ProductUpdateDTO, IProductService>
 {
-  private IProductService _productService;
+    public ProductController(IProductService service) : base(service)
+    {
+    }
 
-  public ProductController(IProductService productService)
-  {
-    _productService = productService;
-  }
+    [Authorize(Roles = "Admin")]
+    [HttpPost()]
+    public override ActionResult<ProductReadDTO> CreateOne([FromBody] ProductCreateDTO productCreateDto)
+    {
+        return CreatedAtAction(nameof(CreateOne), _service.CreateOne(productCreateDto));
+    }
 
-  [HttpGet()]
-  public ActionResult<IEnumerable<ProductReadDTO>> GetAll([FromQuery] GetAllParams options)
-  {
-    return Ok(_productService.GetAll(options));
-  }
+    [Authorize(Roles = "Admin")]
+    [HttpDelete("{id:guid}")]
+    public override ActionResult<bool> DeleteOne([FromRoute] Guid id)
+    {
+        return Ok(_service.DeleteOne(id));
+    }
 
-  [HttpGet("{id:Guid}")]
-  public ActionResult<ProductReadDTO> GetOneById([FromRoute] Guid id)
-  {
-    return Ok(_productService.GetOneById(id));
-  }
+    [Authorize(Roles = "Admin")]
+    [HttpPatch("{id:guid}")]
+    public override ActionResult<ProductReadDTO> UpdateOne([FromRoute] Guid id, [FromBody] ProductUpdateDTO productUpdateDto)
+    {
+        return Ok(_service.UpdateOne(id, productUpdateDto));
+    }
 
-  [HttpPost()]
-  public ActionResult<ProductReadDTO> CreateOne([FromBody] ProductCreateAndUpdateDTO productCreateAndUpdateDto)
-  {
-    return CreatedAtAction(nameof(CreateOne), _productService.CreateOne(productCreateAndUpdateDto));
-  }
+    [HttpGet("category/{categoryId:guid}")]
+    public ActionResult<IEnumerable<ProductReadDTO>> GetByCategory([FromRoute] Guid categoryId)
+    {
+        return Ok(_service.GetByCategory(categoryId));
+    }
 
-  [HttpPatch("{id:Guid}")]
-  public ActionResult<ProductReadDTO> UpdateOne([FromRoute] Guid id, ProductCreateAndUpdateDTO productCreateAndUpdateDto)
-  {
-    return Ok(_productService.UpdateOne(id, productCreateAndUpdateDto));
-  }
-
-  [HttpDelete("{id:Guid}")]
-  public ActionResult<Product> DeleteOne([FromRoute] Guid id)
-  {
-    return Ok(_productService.DeleteOne(id));
-  }
+    [HttpGet("top/{topNumber:int}")]
+    public ActionResult<IEnumerable<ProductReadDTO>> GetMostPurchased([FromRoute] int topNumber)
+    {
+        return Ok(_service.GetMostPurchased(topNumber));
+    }
 }

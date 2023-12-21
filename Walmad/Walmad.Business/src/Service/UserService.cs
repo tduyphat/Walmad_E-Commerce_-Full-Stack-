@@ -1,51 +1,39 @@
 using AutoMapper;
 using Walmad.Business.src.Abstraction;
 using Walmad.Business.src.DTO;
+using Walmad.Business.src.Shared;
 using Walmad.Core.src.Abstraction;
 using Walmad.Core.src.Entity;
-using Walmad.Core.src.Parameter;
 
 namespace Walmad.Business.src.Service;
 
-public class UserService : IUserService
+public class UserService : BaseService<User, UserReadDTO, UserCreateDTO, UserUpdateDTO, IUserRepo>, IUserService
 {
-    private IUserRepo _userRepo;
-    private IMapper _mapper;
-
-    public UserService(IUserRepo userRepo, IMapper mapper)
+    public UserService(IUserRepo repo, IMapper mapper) : base(repo, mapper)
     {
-        _userRepo = userRepo;
-        _mapper = mapper;
     }
 
-    public IEnumerable<UserReadDTO> GetAll(GetAllParams options)
+    public override UserReadDTO CreateOne(UserCreateDTO createObject)
     {
-        var result = _userRepo.GetAll(options);
-        return _mapper.Map<IEnumerable<User>, IEnumerable<UserReadDTO>>(result);
+       PasswordService.HashPassword(createObject.Password, out string hashedPassword, out byte[] salt);
+       var user = _mapper.Map<UserCreateDTO, User>(createObject);
+       user.Password = hashedPassword;
+       user.Salt = salt;
+       var result = _repo.CreateOne(user);
+       return _mapper.Map<User, UserReadDTO>(result);
     }
-
-    public UserReadDTO GetOneById(Guid id)
+    
+    public bool UpdatePassword(string newPassword, Guid id)
     {
-        var result = _userRepo.GetOneById(id);
-        return _mapper.Map<User, UserReadDTO>(result);
-    }
-
-    public UserReadDTO CreateOne(UserCreateDTO userCreateDto)
-    {
-        var result = _userRepo.CreateOne(_mapper.Map<UserCreateDTO, User>(userCreateDto));
-        return _mapper.Map<User, UserReadDTO>(result);
-    }
-
-    public UserReadDTO UpdateOne(Guid id, UserUpdateDTO userUpdateDto)
-    {
-
-        var result = _userRepo.UpdateOne(id, _mapper.Map<UserUpdateDTO, User>(userUpdateDto));
-        return _mapper.Map<User, UserReadDTO>(result);
-    }
-
-    public bool DeleteOne(Guid id)
-    {
-        var result = _userRepo.DeleteOne(id);
-        return result;
+        var user = _repo.GetOneById(id);
+        if (user is null)
+        {
+            throw CustomExeption.NotFoundException();
+        }
+        PasswordService.HashPassword(newPassword, out string hashedPassword, out byte[] salt);
+        user.Password = hashedPassword;
+        user.Salt = salt;
+        _repo.UpdateOne(user);
+        return true;
     }
 }

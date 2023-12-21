@@ -18,4 +18,9 @@ public class CustomExeption : Exception
     {
         return new CustomExeption(400, msg);
     }
+
+    public static CustomExeption UnauthorizedException(string msg = "Unauthorized")
+    {
+        return new CustomExeption(401, msg);
+    }
 }

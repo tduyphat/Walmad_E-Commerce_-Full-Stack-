@@ -1,48 +1,25 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Walmad.Business.src.Abstraction;
 using Walmad.Business.src.DTO;
+using Walmad.Core.src.Entity;
 using Walmad.Core.src.Parameter;
 
 namespace Walmad.Controller.src.Controller;
 
 [ApiController]
 [Route("api/v1/[controller]s")]
-public class UserController : ControllerBase
+public class UserController : BaseController<User, UserReadDTO, UserCreateDTO, UserUpdateDTO, IUserService>
 {
-    private IUserService _userService;
-
-    public UserController(IUserService userService)
+    public UserController(IUserService service) : base(service)
     {
-        _userService = userService;
     }
 
+    // [Authorize(Policy = "SuperAdmin")]
+    [Authorize(Roles = "Admin")]
     [HttpGet()]
-    public ActionResult<IEnumerable<UserReadDTO>> GetAll([FromQuery] GetAllParams options)
+    public override ActionResult<IEnumerable<UserReadDTO>> GetAll([FromQuery] GetAllParams options)
     {
-        return Ok(_userService.GetAll(options));
-    }
-
-    [HttpGet("{id:Guid}")]
-    public ActionResult<UserReadDTO> GetOneById([FromRoute] Guid id)
-    {
-        return Ok(_userService.GetOneById(id));
-    }
-
-    [HttpPost()]
-    public ActionResult<UserReadDTO> CreateOne([FromBody] UserCreateDTO userCreateDto)
-    {
-        return CreatedAtAction(nameof(CreateOne), _userService.CreateOne(userCreateDto));
-    }
-
-    [HttpPatch("{id:Guid}")]
-    public ActionResult<UserReadDTO> UpdateOne([FromRoute] Guid id, [FromBody] UserUpdateDTO userUpdateDto)
-    {
-        return Ok(_userService.UpdateOne(id, userUpdateDto));
-    }
-
-    [HttpDelete("{id:Guid}")]
-    public ActionResult<UserReadDTO> DeleteOne([FromRoute] Guid id)
-    {
-        return Ok(_userService.DeleteOne(id));
+        return Ok(_service.GetAll(options));
     }
 }

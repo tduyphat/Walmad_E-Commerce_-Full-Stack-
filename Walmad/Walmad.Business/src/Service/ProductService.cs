@@ -1,50 +1,54 @@
 using AutoMapper;
 using Walmad.Business.src.Abstraction;
 using Walmad.Business.src.DTO;
+using Walmad.Business.src.Shared;
 using Walmad.Core.src.Abstraction;
 using Walmad.Core.src.Entity;
-using Walmad.Core.src.Parameter;
 
 namespace Walmad.Business.src.Service;
 
-public class ProductService : IProductService
+public class ProductService : BaseService<Product, ProductReadDTO, ProductCreateDTO, ProductUpdateDTO, IProductRepo>, IProductService
 {
-  private IProductRepo _productRepo;
-  private IMapper _mapper;
+    private ICategoryRepo _categoryRepo;
 
-  public ProductService(IProductRepo productRepo, IMapper mapper)
-  {
-    _productRepo = productRepo;
-    _mapper = mapper;
-  }
+    public ProductService(IProductRepo repo, IMapper mapper, ICategoryRepo categoryRepo) : base(repo, mapper)
+    {
+      _categoryRepo = categoryRepo;
+    }
 
-  public IEnumerable<ProductReadDTO> GetAll(GetAllParams options)
-  {
-    var result = _productRepo.GetAll(options);
-    return _mapper.Map<IEnumerable<Product>, IEnumerable<ProductReadDTO>>(result);
-  }
+    public override ProductReadDTO CreateOne(ProductCreateDTO productCreateDto)
+    {
+        var foundCategory = _categoryRepo.GetOneById(productCreateDto.categoryId);
+        if (foundCategory is not null)
+        {
+          var newProduct = _mapper.Map<ProductCreateDTO, Product>(productCreateDto);
+          newProduct.Category = foundCategory;
+          var result = _repo.CreateOne(newProduct);
+          return _mapper.Map<Product, ProductReadDTO>(result);
+        }
+        else
+        {
+          throw CustomExeption.NotFoundException();
+        }
+    }
 
-  public ProductReadDTO GetOneById(Guid id)
-  {
-    var result = _productRepo.GetOneById(id);
-    return _mapper.Map<Product, ProductReadDTO>(result);
-  }
+    public IEnumerable<ProductReadDTO> GetByCategory(Guid categoryId)
+    {
+        var foundCategory = _categoryRepo.GetOneById(categoryId);
+        if (foundCategory is not null)
+        {
+          var result = _repo.GetByCategory(categoryId);
+          return _mapper.Map<IEnumerable<Product>, IEnumerable<ProductReadDTO>>(result);
+        }
+        else
+        {
+          throw CustomExeption.NotFoundException();
+        }
+    }
 
-  public ProductReadDTO CreateOne(ProductCreateAndUpdateDTO productCreateAndUpdateDto)
-  {
-    var result = _productRepo.CreateOne(_mapper.Map<ProductCreateAndUpdateDTO, Product>(productCreateAndUpdateDto));
-    return _mapper.Map<Product, ProductReadDTO>(result);
-  }
-
-  public ProductReadDTO UpdateOne(Guid id, ProductCreateAndUpdateDTO productCreateAndUpdateDto)
-  {
-    var result = _productRepo.UpdateOne(id, _mapper.Map<ProductCreateAndUpdateDTO, Product>(productCreateAndUpdateDto));
-    return _mapper.Map<Product, ProductReadDTO>(result);
-  }
-
-  public bool DeleteOne(Guid id)
-  {
-    var result = _productRepo.DeleteOne(id);
-    return result;
-  }
+    public IEnumerable<ProductReadDTO> GetMostPurchased(int topNumber)
+    {
+        var result = _repo.GetMostPurchased(topNumber);
+        return _mapper.Map<IEnumerable<Product>, IEnumerable<ProductReadDTO>>(result);
+    }
 }

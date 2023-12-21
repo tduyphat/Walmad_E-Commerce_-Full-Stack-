@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace Walmad.Core.src.Entity;
 
 public class Order : BaseEntity
@@ -7,10 +9,12 @@ public class Order : BaseEntity
     public OrderStatus OrderStatus { get; set; } = OrderStatus.Pending;
 }
 
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum OrderStatus
 {
     Pending,
     Processing,
     Shipping,
     Shipped,
+    Cancelled
 }
