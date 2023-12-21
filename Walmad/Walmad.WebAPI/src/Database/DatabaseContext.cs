@@ -11,6 +11,10 @@ public class DatabaseContext : DbContext // builder pattern
     public DbSet<Address> Addresses { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<Category> Categories { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<OrderProduct> OrderProducts { get; set; }
+    public DbSet<ProductImage> ProductImages { get; set; }
+    public DbSet<Review> Reviews { get; set; }
 
     static DatabaseContext()
     {
@@ -26,6 +30,7 @@ public class DatabaseContext : DbContext // builder pattern
     {
         var dataSourceBuilder = new NpgsqlDataSourceBuilder(_config.GetConnectionString("LocalDb"));
         dataSourceBuilder.MapEnum<Role>();
+        dataSourceBuilder.MapEnum<OrderStatus>();
         var dataSource = dataSourceBuilder.Build();
         optionsBuilder
             .UseNpgsql(dataSource)
@@ -38,6 +43,8 @@ public class DatabaseContext : DbContext // builder pattern
     {
         modelBuilder.HasPostgresEnum<Role>();
         modelBuilder.Entity<User>(entity => entity.Property(e => e.Role).HasColumnType("role"));
+        modelBuilder.HasPostgresEnum<OrderStatus>();
+        modelBuilder.Entity<Order>(entity => entity.Property(e => e.OrderStatus).HasColumnType("orderStatus"));
         // modelBuilder.Entity<Category>().HasMany<Product>().WithOne().OnDelete(DeleteBehavior.Cascade);
         // modelBuilder.Entity<Product>().HasMany<ProductImage>().WithOne().OnDelete(DeleteBehavior.Cascade);
     }

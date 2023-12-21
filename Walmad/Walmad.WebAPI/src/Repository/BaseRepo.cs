@@ -19,14 +19,14 @@ public class BaseRepo<T> : IBaseRepo<T> where T : BaseEntity
     _data = _databaseContext.Set<T>();
   }
 
-  public T CreateOne(T createObject)
+  public virtual T CreateOne(T createObject)
   {
     _data.Add(createObject);
     _databaseContext.SaveChanges();
     return createObject;
   }
 
-  public bool DeleteOne(T deleteObject)
+  public virtual bool DeleteOne(T deleteObject)
   {
     if (_data.Find(deleteObject) is not null)
     {
@@ -37,17 +37,17 @@ public class BaseRepo<T> : IBaseRepo<T> where T : BaseEntity
     return true;
   }
 
-  public IEnumerable<T> GetAll(GetAllParams options)
+  public virtual IEnumerable<T> GetAll(GetAllParams options)
   {
     return _data.Skip(options.Offset).Take(options.Limit).ToArray();
   }
 
-  public T? GetOneById(Guid id)
+  public virtual T? GetOneById(Guid id)
   {
     return _data.Find(id);
   }
 
-  public T UpdateOne(T updateObject)
+  public virtual T UpdateOne(T updateObject)
   {
     if (_data.Find(updateObject) is null)
     {

@@ -4,9 +4,9 @@ using Walmad.WebAPI.src.Database;
 
 namespace Walmad.WebAPI.src.Repository;
 
-public class CategoryRepo : BaseRepo<Category>, ICategoryRepo
+public class AddressRepo : BaseRepo<Address>, IAddressRepo
 {
-    public CategoryRepo(DatabaseContext databaseContext) : base(databaseContext)
+    public AddressRepo(DatabaseContext databaseContext) : base(databaseContext)
     {
     }
 }

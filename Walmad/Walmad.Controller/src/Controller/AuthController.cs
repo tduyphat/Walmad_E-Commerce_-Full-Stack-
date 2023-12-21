@@ -21,4 +21,10 @@ public class AuthController : ControllerBase
     {
         return _authService.Login(credentials);
     }
+
+    [HttpPost("profile")]
+    public ActionResult<UserReadDTO> GetCurrentProfile([FromHeader] string token)
+    {
+        return _authService.GetCurrentProfile(token);
+    }
 }

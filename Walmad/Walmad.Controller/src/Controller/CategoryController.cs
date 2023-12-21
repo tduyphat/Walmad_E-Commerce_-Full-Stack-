@@ -1,8 +1,8 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Walmad.Business.src.Abstraction;
 using Walmad.Business.src.DTO;
 using Walmad.Core.src.Entity;
-using Walmad.Core.src.Parameter;
 
 namespace Walmad.Controller.src.Controller;
 
@@ -13,19 +13,22 @@ public class CategoryController : BaseController<Category, CategoryReadDTO, Cate
     public CategoryController(ICategoryService service) : base(service)  
     {
     }
-
+    
+    // [Authorize(Roles = "Admin")]
     [HttpPost()]
     public override ActionResult<CategoryReadDTO> CreateOne([FromBody] CategoryCreateDTO categoryCreateDto)
     {
         return CreatedAtAction(nameof(CreateOne), _service.CreateOne(categoryCreateDto));
     }
 
+    // [Authorize(Roles = "Admin")]
     [HttpDelete("{id:guid}")]
     public override ActionResult<bool> DeleteOne([FromRoute] Guid id)
     {
         return Ok(_service.DeleteOne(id));
     }
 
+    // [Authorize(Roles = "Admin")]
     [HttpPatch("{id:guid}")]
     public override ActionResult<CategoryReadDTO> UpdateOne([FromRoute] Guid id, [FromBody] CategoryUpdateDTO categoryUpdateDto)
     {

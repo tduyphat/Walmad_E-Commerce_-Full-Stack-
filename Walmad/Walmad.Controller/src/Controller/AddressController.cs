@@ -19,7 +19,7 @@ public class AddressController : BaseController<Address, AddressReadDTO, Address
         return Ok(_service.DeleteOne(id));
     }
 
-    [Authorize(Roles = "Admin")]
+    // [Authorize(Roles = "Admin")]
     [HttpGet()]
     public override ActionResult<IEnumerable<AddressReadDTO>> GetAll([FromQuery] GetAllParams options)
     {

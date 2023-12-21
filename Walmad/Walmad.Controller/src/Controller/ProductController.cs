@@ -14,21 +14,21 @@ public class ProductController : BaseController<Product, ProductReadDTO, Product
     {
     }
 
-    [Authorize(Roles = "Admin")]
+    // [Authorize(Roles = "Admin")]
     [HttpPost()]
     public override ActionResult<ProductReadDTO> CreateOne([FromBody] ProductCreateDTO productCreateDto)
     {
         return CreatedAtAction(nameof(CreateOne), _service.CreateOne(productCreateDto));
     }
 
-    [Authorize(Roles = "Admin")]
+    // [Authorize(Roles = "Admin")]
     [HttpDelete("{id:guid}")]
     public override ActionResult<bool> DeleteOne([FromRoute] Guid id)
     {
         return Ok(_service.DeleteOne(id));
     }
 
-    [Authorize(Roles = "Admin")]
+    // [Authorize(Roles = "Admin")]
     [HttpPatch("{id:guid}")]
     public override ActionResult<ProductReadDTO> UpdateOne([FromRoute] Guid id, [FromBody] ProductUpdateDTO productUpdateDto)
     {
