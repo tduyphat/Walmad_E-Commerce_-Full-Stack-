@@ -6,7 +6,7 @@ using Walmad.Core.src.Parameter;
 namespace Walmad.Controller.src.Controller;
 
 [ApiController]
-[Route("api/[controller]s")]
+[Route("api/v1/[controller]s")]
 public class BaseController<T, TReadDTO, TCreateDTO, TUpdateDTO, TService> : ControllerBase 
 where T : BaseEntity
 where TService : IBaseService<T, TReadDTO, TCreateDTO, TUpdateDTO>

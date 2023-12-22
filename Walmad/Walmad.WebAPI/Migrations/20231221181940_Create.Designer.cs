@@ -13,7 +13,7 @@ using Walmad.WebAPI.src.Database;
 namespace Walmad.WebAPI.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20231221103118_Create")]
+    [Migration("20231221181940_Create")]
     partial class Create
     {
         /// <inheritdoc />
@@ -143,7 +143,7 @@ namespace Walmad.WebAPI.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("created_at");
 
-                    b.Property<Guid>("OrderId")
+                    b.Property<Guid?>("OrderId")
                         .HasColumnType("uuid")
                         .HasColumnName("order_id");
 
@@ -366,11 +366,9 @@ namespace Walmad.WebAPI.Migrations
 
             modelBuilder.Entity("Walmad.Core.src.Entity.OrderProduct", b =>
                 {
-                    b.HasOne("Walmad.Core.src.Entity.Order", "Order")
+                    b.HasOne("Walmad.Core.src.Entity.Order", null)
                         .WithMany("OrderProducts")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("fk_order_products_orders_order_id");
 
                     b.HasOne("Walmad.Core.src.Entity.Product", "Product")
@@ -379,8 +377,6 @@ namespace Walmad.WebAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_order_products_products_product_id");
-
-                    b.Navigation("Order");
 
                     b.Navigation("Product");
                 });

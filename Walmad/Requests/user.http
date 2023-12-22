@@ -3,10 +3,10 @@ Content-Type: application/json
 
 {
   "name": "jim",
-  "email": "jim2qwdqwd@gmail.com",
-  "password": "string2wqdqwedq2w",
+  "email": "jim@mail.com",
+  "password": "1234",
   "avatar": "www.jim.com",
-  "role": "Admin",
+  "role": "Customer",
   "addresses": [
     {
       "houseNumber": 68,
@@ -28,3 +28,6 @@ Content-Type: application/json
   "email": "jim@mail.com",
   "password": "1234"
 }
+
+###
+GET http://localhost:5258/api/v1/users HTTP/1.1

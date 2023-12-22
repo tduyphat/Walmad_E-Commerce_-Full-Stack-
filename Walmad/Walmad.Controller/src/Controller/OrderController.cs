@@ -13,6 +13,13 @@ public class OrderController : BaseController<Order, OrderReadDTO, OrderCreateDT
     {
     }
 
+    // [Authorize(Roles = "Customer")]
+    [HttpPost()]
+    public override ActionResult<OrderReadDTO> CreateOne([FromBody] OrderCreateDTO orderCreateDto)
+    {
+        return CreatedAtAction(nameof(CreateOne), _service.CreateOne(orderCreateDto));
+    }
+
     // [Authorize(Roles = "Admin")]
     [HttpDelete("{id:guid}")]
     public override ActionResult<bool> DeleteOne([FromRoute] Guid id)

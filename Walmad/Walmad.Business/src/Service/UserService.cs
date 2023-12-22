@@ -13,10 +13,11 @@ public class UserService : BaseService<User, UserReadDTO, UserCreateDTO, UserUpd
     {
     }
 
-    public override UserReadDTO CreateOne(UserCreateDTO createObject)
+    public override UserReadDTO CreateOne(UserCreateDTO userCreateDto)
     {
-       PasswordService.HashPassword(createObject.Password, out string hashedPassword, out byte[] salt);
-       var user = _mapper.Map<UserCreateDTO, User>(createObject);
+       PasswordService.HashPassword(userCreateDto.Password, out string hashedPassword, out byte[] salt);
+       userCreateDto.Role = Role.Customer;
+       var user = _mapper.Map<UserCreateDTO, User>(userCreateDto);
        user.Password = hashedPassword;
        user.Salt = salt;
        var result = _repo.CreateOne(user);

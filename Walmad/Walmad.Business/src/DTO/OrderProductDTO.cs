@@ -4,7 +4,7 @@ namespace Walmad.Business.src.DTO;
 
 public class OrderProductReadDTO
 {
-    public Product Product { get; set; }
+    public ProductReadDTO Product { get; set; }
     public int Quantity { get; set; }
 }
 

@@ -30,7 +30,11 @@ public class OrderService : BaseService<Order, OrderReadDTO, OrderCreateDTO, Ord
                 var foundProduct = _productRepo.GetOneById(orderProduct.ProductId);
                 if (foundProduct is not null)
                 {
-                    var newOrderProduct = new OrderProduct { Product = foundProduct, Quantity = orderProduct.Quantity };
+                    var newOrderProduct = _mapper.Map<OrderProductCreateDTO, OrderProduct>(orderProduct);
+                    newOrderProduct.Product = foundProduct;
+                    newOrderProduct.Quantity = orderProduct.Quantity;
+                    // var newOrderProduct = new OrderProduct { Id = Guid.NewGuid(), Product = foundProduct, Quantity = orderProduct.Quantity };
+                    Console.WriteLine(newOrderProduct.Id);
                     newOrder.OrderProducts.ToList().Add(newOrderProduct);
                 }
                 else

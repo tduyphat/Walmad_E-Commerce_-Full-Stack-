@@ -36,11 +36,11 @@ public class MapperProfile : Profile
         CreateMap<ReviewCreateDTO, Review>();
         CreateMap<ReviewUpdateDTO, Review>().ForAllMembers(opt => opt.Condition((src, dest, member) => member != null));
 
-        CreateMap<Order, OrderReadDTO>()
-            .ForMember(dest => dest.OrderProducts, opt => opt.MapFrom(s => s.OrderProducts));
-        CreateMap<OrderCreateDTO, Order>()
-            .ForMember(dest => dest.User, opt => opt.Ignore())
-            .ForMember(dest => dest.OrderProducts, opt => opt.MapFrom(s => s.OrderProducts)); ;
+        CreateMap<Order, OrderReadDTO>();
+        CreateMap<OrderCreateDTO, Order>();
         CreateMap<OrderUpdateDTO, Order>().ForAllMembers(opt => opt.Condition((src, dest, member) => member != null));
+
+        CreateMap<OrderProduct, OrderProductReadDTO>();
+        CreateMap<OrderProductCreateDTO, OrderProduct>();
     }
 }

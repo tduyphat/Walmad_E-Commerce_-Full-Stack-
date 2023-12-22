@@ -6,8 +6,8 @@ public class ReviewReadDTO : BaseEntity
 {
     public byte Rating { get; set; }
     public string Content { get; set; }
-    public User User { get; set; }
-    public Product Product { get; set; }
+    public UserReadDTO User { get; set; }
+    public ProductReadDTO Product { get; set; }
 }
 
 public class ReviewCreateDTO
