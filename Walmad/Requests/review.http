@@ -10,6 +10,7 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5258/api/v1/reviews HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJlYjliOWFhYS02MzYwLTRkZWEtYWQzNy0wNGFhZjA4MDVlOTQiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6InN1cGVyYWRtaW5AZ21haWwuY29tIiwibmJmIjoxNzAzMzU4NTMxLCJleHAiOjE3MDM1MzEzMzEsImlhdCI6MTcwMzM1ODUzMSwiaXNzIjoiUGhhdCIsImF1ZCI6IlBoYXRFQ29tbWVyY2UifQ.MvcqTi__CbKm89L5O4EKvRCu0pA6wAgrEjN-rSybR30
 
 ###
 GET http://localhost:5258/api/v1/reviews/a4ea088d-f752-48d6-8929-c77bee70d853 HTTP/1.1
