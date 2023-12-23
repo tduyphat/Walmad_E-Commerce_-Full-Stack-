@@ -6,7 +6,7 @@ Content-Type: application/json
   "orderProducts": [
     {
       "productId": "704f67c6-7b5d-4250-acca-1ef4dc655a07",
-      "quantity": 4
+      "quantity": 500
     }
   ],
   "orderStatus": "Pending"

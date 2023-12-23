@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Walmad.Business.src.Shared;
 using Walmad.Core.src.Abstraction;
 using Walmad.Core.src.Entity;
 using Walmad.Core.src.Parameter;
@@ -8,8 +9,46 @@ namespace Walmad.WebAPI.src.Repository;
 
 public class OrderRepo : BaseRepo<Order>, IOrderRepo
 {
+    private DbSet<Product> _products;
     public OrderRepo(DatabaseContext databaseContext) : base(databaseContext)
     {
+        _products = databaseContext.Products;
+    }
+
+    public override Order CreateOne(Order order)
+    {
+        using ( var transaction = _databaseContext.Database.BeginTransaction())
+        {
+            try
+            {
+                foreach(var orderProduct in order.OrderProducts)
+                {
+                    var foundProduct = _products.First(product => product == orderProduct.Product);
+                    if (foundProduct.Inventory >= orderProduct.Quantity)
+                    {
+                        Console.WriteLine($"BEFORE ____ {foundProduct.Inventory}");
+                        foundProduct.Inventory -= orderProduct.Quantity;
+                        Console.WriteLine($"AFTER ____ {foundProduct.Inventory}");
+                        _products.Update(foundProduct);
+                        _databaseContext.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        throw CustomExeption.BadRequestException("Product out of inventory");
+                    }
+                }
+                _data.Add(order);
+                _databaseContext.SaveChanges();
+                transaction.Commit();
+                return order;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                transaction.Rollback();
+                throw;
+            }
+        }
     }
 
     public override IEnumerable<Order> GetAll(GetAllParams options)
