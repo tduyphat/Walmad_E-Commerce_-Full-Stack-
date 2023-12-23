@@ -10,7 +10,11 @@ public class User : BaseEntity
     public string Avatar { get; set; }
     public byte[] Salt { get; set; } // random key to hash password
     public Role Role { get; set; } = Role.Customer;
-    public IEnumerable<Address> Addresses { get; set; }
+    public string AddressLine1 { get; set; }
+    public string? AddressLine2 { get; set; }
+    public int PostCode { get; set; }
+    public string City { get; set; }
+    public string Country { get; set; }
 }
 
 [JsonConverter(typeof(JsonStringEnumConverter))]

@@ -35,7 +35,7 @@ where TRepo : IBaseRepo<T>
         }
         else
         {
-            throw CustomExeption.NotFoundException();
+            throw CustomExeption.NotFoundException("Id not found");
         }
     }
 
@@ -53,7 +53,7 @@ where TRepo : IBaseRepo<T>
         }
         else
         {
-            throw CustomExeption.NotFoundException();
+            throw CustomExeption.NotFoundException("Id not found");
         }
     }
 
@@ -67,7 +67,7 @@ where TRepo : IBaseRepo<T>
         }
         else
         {
-            throw CustomExeption.NotFoundException();
+            throw CustomExeption.NotFoundException("Id not found");
         }
     }
 }

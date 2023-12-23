@@ -1,0 +1,20 @@
+POST http://localhost:5258/api/v1/categorys HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Clothing",
+  "image": "https://picsum.photos/200"
+}
+
+###
+GET http://localhost:5258/api/v1/categorys HTTP/1.1
+
+###
+PATCH  http://localhost:5258/api/v1/categorys/eb469f0a-ca39-4a48-9c27-6c543b4f5b3c HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Beverage",
+  "image": "https://picsum.photos/200"
+}
+

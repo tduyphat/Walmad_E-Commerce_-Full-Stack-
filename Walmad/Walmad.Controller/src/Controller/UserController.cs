@@ -44,8 +44,14 @@ public class UserController : BaseController<User, UserReadDTO, UserCreateDTO, U
     }
 
     [HttpPatch("updatePassword/{id:guid}")]
-    public ActionResult<bool> UpdatePassword([FromRoute] Guid id, [FromBody] string newPassword)
+    public ActionResult<bool> UpdatePassword([FromRoute] Guid id, [FromBody] PasswordChangeForm passwordChangeForm)
     {
-        return Ok(_service.UpdatePassword(newPassword, id));
+        return Ok(_service.UpdatePassword(passwordChangeForm, id));
+    }
+
+    [HttpPost("emailAvaiable")]
+    public ActionResult<bool> EmailAvailable([FromBody] string email)
+    {
+        return Ok(_service.EmailAvailable(email));
     }
 }

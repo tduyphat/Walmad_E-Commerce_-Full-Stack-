@@ -14,7 +14,7 @@ public class UserRepo : BaseRepo<User>, IUserRepo
 
     public override IEnumerable<User> GetAll(GetAllParams options)
     {
-        return _data.Include("Addresses").Skip(options.Offset).Take(options.Limit).ToArray();
+        return _data.Skip(options.Offset).Take(options.Limit).ToArray();
     }
 
     public User? FindByEmail(string email)

@@ -2,12 +2,18 @@ POST http://localhost:5258/api/v1/orders HTTP/1.1
 Content-Type: application/json
 
 {
-  "userId": "f426fab5-3e4d-4219-afad-a32e5c626eda",
+  "userId": "0cf0f8e7-6292-408e-87ac-fad7c906d72c",
   "orderProducts": [
     {
-      "productId": "fcd28e8f-9973-475e-a47e-3c7ceef1a575",
+      "productId": "704f67c6-7b5d-4250-acca-1ef4dc655a07",
       "quantity": 4
     }
   ],
   "orderStatus": "Pending"
 }
+
+###
+GET http://localhost:5258/api/v1/orders/ HTTP/1.1
+
+###
+DELETE http://localhost:5258/api/v1/orders/77a945b0-7321-4bea-aee8-1de7a362d35e HTTP/1.1

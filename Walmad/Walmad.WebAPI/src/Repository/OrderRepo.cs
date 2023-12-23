@@ -14,9 +14,9 @@ public class OrderRepo : BaseRepo<Order>, IOrderRepo
 
     public override IEnumerable<Order> GetAll(GetAllParams options)
     {
-        return _data.Include("OrderProducts").Skip(options.Offset).Take(options.Limit).ToArray();
+        return _data.Include("OrderProducts").Include("User").Skip(options.Offset).Take(options.Limit).ToArray();
     }
-    
+
     public IEnumerable<Order> GetByUser(Guid userId)
     {
         return _data.Where(orders => orders.User.Id == userId);

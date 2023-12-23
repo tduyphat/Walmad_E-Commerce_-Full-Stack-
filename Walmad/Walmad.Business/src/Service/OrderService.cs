@@ -20,34 +20,31 @@ public class OrderService : BaseService<Order, OrderReadDTO, OrderCreateDTO, Ord
 
     public override OrderReadDTO CreateOne(OrderCreateDTO orderCreateDto)
     {
-        var newOrder = _mapper.Map<OrderCreateDTO, Order>(orderCreateDto);
         var foundUser = _userRepo.GetOneById(orderCreateDto.UserId);
-        if (foundUser is not null)
+        if (foundUser is null)
         {
-            newOrder.User = foundUser;
-            foreach (var orderProduct in orderCreateDto.OrderProducts)
-            {
-                var foundProduct = _productRepo.GetOneById(orderProduct.ProductId);
-                if (foundProduct is not null)
-                {
-                    var newOrderProduct = _mapper.Map<OrderProductCreateDTO, OrderProduct>(orderProduct);
-                    newOrderProduct.Product = foundProduct;
-                    newOrderProduct.Quantity = orderProduct.Quantity;
-                    // var newOrderProduct = new OrderProduct { Id = Guid.NewGuid(), Product = foundProduct, Quantity = orderProduct.Quantity };
-                    Console.WriteLine(newOrderProduct.Id);
-                    newOrder.OrderProducts.ToList().Add(newOrderProduct);
-                }
-                else
-                {
-                    throw CustomExeption.NotFoundException();
-                }
-            }
-            var result = _repo.CreateOne(newOrder);
-            return _mapper.Map<Order, OrderReadDTO>(result);
+            throw CustomExeption.NotFoundException();
         }
         else
         {
-            throw CustomExeption.NotFoundException();
+            var order = _mapper.Map<Order>(orderCreateDto);
+            order.User = foundUser;
+            order.OrderProducts = new List<OrderProduct>();
+            foreach (var orderProductDto in orderCreateDto.OrderProducts)
+            {
+                var foundProduct = _productRepo.GetOneById(orderProductDto.ProductId);
+                if (foundProduct == null)
+                {
+                    throw CustomExeption.NotFoundException("Product not found");
+                }
+                order.OrderProducts.ToList().Add(new OrderProduct
+                {
+                    Product = foundProduct,
+                    Quantity = orderProductDto.Quantity,
+                });
+            }
+            var createdOrder = _repo.CreateOne(order);
+            return _mapper.Map<OrderReadDTO>(createdOrder);
         }
     }
 

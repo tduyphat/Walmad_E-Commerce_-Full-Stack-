@@ -1,14 +1,14 @@
 using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
+// using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Walmad.Business.src;
 using Walmad.Business.src.Abstraction;
 using Walmad.Business.src.Service;
 using Walmad.Business.src.Shared;
 using Walmad.Core.src.Abstraction;
-using Walmad.WebAPI.src.Authorization;
+// using Walmad.WebAPI.src.Authorization;
 using Walmad.WebAPI.src.Database;
 using Walmad.WebAPI.src.Middleware;
 using Walmad.WebAPI.src.Repository;
@@ -37,14 +37,12 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IOrderRepo, OrderRepo>();
 builder.Services.AddScoped<IProductImageService, ProductImageService>();
 builder.Services.AddScoped<IProductImageRepo, ProductImageRepo>();
-builder.Services.AddScoped<IAddressService, AddressService>();
-builder.Services.AddScoped<IAddressRepo, AddressRepo>();
 
 
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 
-builder.Services.AddScoped<CheckAddressHandler>();
+// builder.Services.AddScoped<CheckAddressHandler>();
 
 // error handler middleware
 builder.Services.AddTransient<ExceptionHandlerMiddleware>();
@@ -75,7 +73,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 builder.Services.AddAuthorization(policy =>
 {
     policy.AddPolicy("SuperAdmin", policy => policy.RequireClaim(ClaimTypes.Email, "jim2qwdqwd@gmail.com"));
-    policy.AddPolicy("MaxLength", policy => policy.AddRequirements(new CheckAddressRequirement(10)));
+    // policy.AddPolicy("MaxLength", policy => policy.AddRequirements(new CheckAddressRequirement(10)));
 });
 
 var app = builder.Build();

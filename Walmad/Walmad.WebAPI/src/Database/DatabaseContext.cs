@@ -8,7 +8,6 @@ public class DatabaseContext : DbContext // builder pattern
 {
     private readonly IConfiguration _config;
     public DbSet<User> Users { get; set; }
-    public DbSet<Address> Addresses { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Order> Orders { get; set; }
@@ -42,10 +41,13 @@ public class DatabaseContext : DbContext // builder pattern
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasPostgresEnum<Role>();
-        // modelBuilder.Entity<User>(entity => entity.Property(e => e.Role).HasColumnType("role"));
         modelBuilder.HasPostgresEnum<OrderStatus>();
-        // modelBuilder.Entity<Order>(entity => entity.Property(e => e.OrderStatus).HasColumnType("order_status"));
-        // modelBuilder.Entity<Category>().HasMany<Product>().WithOne().OnDelete(DeleteBehavior.Cascade);
-        // modelBuilder.Entity<Product>().HasMany<ProductImage>().WithOne().OnDelete(DeleteBehavior.Cascade);
+        
+        modelBuilder.Entity<Category>().HasMany<Product>().WithOne().OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<Product>().HasMany<ProductImage>().WithOne().OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<Order>().HasMany<OrderProduct>().WithOne().OnDelete(DeleteBehavior.Cascade);
+
+        // modelBuilder.Entity<Product>().ToTable(p => p.HasCheckConstraint("CHK_Product_Price_Positive", "price >= 0"));
+        // // modelBuilder.Entity<OrderProduct>().ToTable(p => p.HasCheckConstraint("CHK_OrderProduct_Quantity_Positive", "quantity >= 0"));
     }
 }

@@ -4,7 +4,7 @@ namespace Walmad.Business.src.DTO;
 
 public class OrderReadDTO : BaseEntity
 {
-    public User User { get; set; }
+    public UserReadDTO User { get; set; }
     public IEnumerable<OrderProductReadDTO> OrderProducts { get; set; }
     public OrderStatus OrderStatus { get; set; }
 }

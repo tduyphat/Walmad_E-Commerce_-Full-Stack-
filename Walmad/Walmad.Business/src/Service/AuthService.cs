@@ -28,7 +28,7 @@ public class AuthService : IAuthService
     {
       return _mapper.Map<User, UserReadDTO>(foundUser);
     }
-    throw CustomExeption.NotFoundException();
+    throw CustomExeption.NotFoundException("User not found");
   }
 
   public string Login(Credentials credentials)
@@ -36,13 +36,13 @@ public class AuthService : IAuthService
     var foundByEmail = _userRepo.FindByEmail(credentials.Email);
     if (foundByEmail is null)
     {
-      throw CustomExeption.NotFoundException();
+      throw CustomExeption.NotFoundException("Email not found");
     }
     var isPasswordMatch = PasswordService.VerifyPassword(credentials.Password, foundByEmail.Password, foundByEmail.Salt);
     if (isPasswordMatch)
     {
       return _tokenService.GenerateToken(foundByEmail);
     }
-    throw CustomExeption.UnauthorizedException();
+    throw CustomExeption.UnauthorizedException("Password incorrect");
   }
 }

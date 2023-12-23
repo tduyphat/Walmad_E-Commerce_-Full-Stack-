@@ -2,32 +2,65 @@ POST http://localhost:5258/api/v1/users HTTP/1.1
 Content-Type: application/json
 
 {
-  "name": "jim",
-  "email": "jim@mail.com",
+  "name": "maria",
+  "email": "maria@mail.com",
   "password": "1234",
-  "avatar": "www.jim.com",
-  "role": "Customer",
-  "addresses": [
-    {
-      "houseNumber": 68,
-      "street": "tqk",
-      "postCode": 61
-    }
-  ]
+  "avatar": "www.maria.com",
+  "role": "Admin",
+  "addressLine1": "palo 16",
+  "postCode": 65200,
+  "city": "Vaasa",
+  "country": "Finland"
+}
+
+###
+PATCH http://localhost:5258/api/v1/users/432eec7b-a3b3-4cc4-b5ee-bea439daa71b HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "maria",
+  "email": "maria@mail.com",
+  "avatar": "www.maria.com",
+  "role": "Admin",
+  "addressLine1": "palo 16",
+  "postCode": 65200,
+  "city": "Vaasa",
+  "country": "Finland"
 }
 
 ###
 GET http://localhost:5258/api/v1/auth/profile HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJiZGYyYmZhOC0zNDU5LTRhMjAtYjU0Yi04Njg0ZWFjNTczYTYiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6ImppbUBtYWlsLmNvbSIsIm5iZiI6MTcwMzE3NTc3NCwiZXhwIjoxNzAzMzQ4NTc0LCJpYXQiOjE3MDMxNzU3NzQsImlzcyI6IlBoYXQiLCJhdWQiOiJQaGF0RUNvbW1lcmNlIn0.iALRVDPfyL_nYAfX24ZzDIhDA19DAWnosJzVdL1Z7oo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJmN2YyMGQzMC1lZDBmLTRhNzEtYjRlMS02NWZmOGUyMjgzOTgiLCJyb2xlIjoiQ3VzdG9tZXIiLCJlbWFpbCI6ImppbUBtYWlsLmNvbSIsIm5iZiI6MTcwMzMyNDQyMCwiZXhwIjoxNzAzNDk3MjIwLCJpYXQiOjE3MDMzMjQ0MjAsImlzcyI6IlBoYXQiLCJhdWQiOiJQaGF0RUNvbW1lcmNlIn0.0fYn_NxPuXBKPgR5GwhFZ4onybI9cqO3PneMAEPkuLI
 
 ###
 POST http://localhost:5258/api/v1/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "jim@mail.com",
-  "password": "1234"
+  "email": "maria@mail.com",
+  "password": "12345"
 }
 
 ###
 GET http://localhost:5258/api/v1/users HTTP/1.1
+
+###
+GET http://localhost:5258/api/v1/users/0cf0f8e7-6292-408e-87ac-fad7c906d72c HTTP/1.1 HTTP/1.1
+
+###
+DELETE http://localhost:5258/api/v1/users/f7f20d30-ed0f-4a71-b4e1-65ff8e228398 HTTP/1.1
+
+###
+PATCH http://localhost:5258/api/v1/users/updatepassword/432eec7b-a3b3-4cc4-b5ee-bea439daa71b HTTP/1.1
+Content-Type: application/json
+
+{
+  "currentPassword": "1234",
+  "newPassword": "12345"
+}
+
+###
+POST http://localhost:5258/api/v1/users/emailavailable HTTP/1.1
+Content-Type: application/json
+
+"maria@mail.com"
