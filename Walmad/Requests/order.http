@@ -16,4 +16,18 @@ Content-Type: application/json
 GET http://localhost:5258/api/v1/orders/ HTTP/1.1
 
 ###
-DELETE http://localhost:5258/api/v1/orders/77a945b0-7321-4bea-aee8-1de7a362d35e HTTP/1.1
+GET http://localhost:5258/api/v1/orders/a9c113b7-398e-4883-871b-2ddfb4570036 HTTP/1.1
+
+###
+GET http://localhost:5258/api/v1/orders/user/0cf0f8e7-6292-408e-87ac-fad7c906d72c HTTP/1.1
+
+###
+DELETE http://localhost:5258/api/v1/orders/0d0e512d-5714-4612-afa3-7997336759fc HTTP/1.1
+
+###
+PATCH http://localhost:5258/api/v1/orders/a9c113b7-398e-4883-871b-2ddfb4570036 HTTP/1.1
+Content-Type: application/json
+
+{
+  "OrderStatus": "Shipping"
+}

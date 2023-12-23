@@ -1,0 +1,15 @@
+POST http://localhost:5258/api/v1/reviews HTTP/1.1
+Content-Type: application/json
+
+{
+  "rating": 3,
+  "content": "good",
+  "userID": "0cf0f8e7-6292-408e-87ac-fad7c906d72c",
+  "productID": "704f67c6-7b5d-4250-acca-1ef4dc655a07"
+}
+
+###
+GET http://localhost:5258/api/v1/reviews HTTP/1.1
+
+###
+GET http://localhost:5258/api/v1/reviews/a4ea088d-f752-48d6-8929-c77bee70d853 HTTP/1.1

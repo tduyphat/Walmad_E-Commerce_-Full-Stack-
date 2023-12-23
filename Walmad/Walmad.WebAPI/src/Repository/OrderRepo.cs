@@ -14,11 +14,17 @@ public class OrderRepo : BaseRepo<Order>, IOrderRepo
 
     public override IEnumerable<Order> GetAll(GetAllParams options)
     {
-        return _data.Include("OrderProducts").Include("User").Skip(options.Offset).Take(options.Limit).ToArray();
+        return _data.Include("User").Include(o => o.OrderProducts).ThenInclude(o => o.Product).Skip(options.Offset).Take(options.Limit).ToArray();
+    }
+
+    public override Order? GetOneById(Guid id)
+    {
+        var allData = _data.Include("User").Include(o => o.OrderProducts).ThenInclude(o => o.Product);
+        return allData.FirstOrDefault(order => order.Id == id);
     }
 
     public IEnumerable<Order> GetByUser(Guid userId)
     {
-        return _data.Where(orders => orders.User.Id == userId);
+        return _data.Include("User").Include(o => o.OrderProducts).ThenInclude(o => o.Product).Where(orders => orders.User.Id == userId).ToArray();
     }
 }

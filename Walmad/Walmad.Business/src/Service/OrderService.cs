@@ -29,7 +29,7 @@ public class OrderService : BaseService<Order, OrderReadDTO, OrderCreateDTO, Ord
         {
             var order = _mapper.Map<Order>(orderCreateDto);
             order.User = foundUser;
-            order.OrderProducts = new List<OrderProduct>();
+            var newOrderProductList = new List<OrderProduct>();
             foreach (var orderProductDto in orderCreateDto.OrderProducts)
             {
                 var foundProduct = _productRepo.GetOneById(orderProductDto.ProductId);
@@ -37,12 +37,13 @@ public class OrderService : BaseService<Order, OrderReadDTO, OrderCreateDTO, Ord
                 {
                     throw CustomExeption.NotFoundException("Product not found");
                 }
-                order.OrderProducts.ToList().Add(new OrderProduct
+                newOrderProductList.Add(new OrderProduct
                 {
                     Product = foundProduct,
                     Quantity = orderProductDto.Quantity,
                 });
             }
+            order.OrderProducts = newOrderProductList;
             var createdOrder = _repo.CreateOne(order);
             return _mapper.Map<OrderReadDTO>(createdOrder);
         }
