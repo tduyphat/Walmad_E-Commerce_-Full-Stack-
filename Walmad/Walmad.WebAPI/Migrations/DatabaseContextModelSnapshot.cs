@@ -53,7 +53,61 @@ namespace Walmad.WebAPI.Migrations
                     b.HasKey("Id")
                         .HasName("pk_categories");
 
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("ix_categories_name");
+
                     b.ToTable("categories", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("ebab49d3-3549-417d-bbb1-bf9bb067fccf"),
+                            CreatedAt = new DateTime(2023, 12, 23, 18, 1, 41, 194, DateTimeKind.Utc).AddTicks(6071),
+                            Image = "https://picsum.photos/200",
+                            Name = "Electronic",
+                            UpdatedAt = new DateTime(2023, 12, 23, 18, 1, 41, 194, DateTimeKind.Utc).AddTicks(6262)
+                        },
+                        new
+                        {
+                            Id = new Guid("e8f3ab8e-525f-4596-8226-d348ef4ab56a"),
+                            CreatedAt = new DateTime(2023, 12, 23, 18, 1, 41, 194, DateTimeKind.Utc).AddTicks(6434),
+                            Image = "https://picsum.photos/200",
+                            Name = "Clothing",
+                            UpdatedAt = new DateTime(2023, 12, 23, 18, 1, 41, 194, DateTimeKind.Utc).AddTicks(6435)
+                        },
+                        new
+                        {
+                            Id = new Guid("dbcc2bd6-945a-4ee3-83f9-7a511ac7e8ec"),
+                            CreatedAt = new DateTime(2023, 12, 23, 18, 1, 41, 194, DateTimeKind.Utc).AddTicks(6437),
+                            Image = "https://picsum.photos/200",
+                            Name = "Home Decor",
+                            UpdatedAt = new DateTime(2023, 12, 23, 18, 1, 41, 194, DateTimeKind.Utc).AddTicks(6437)
+                        },
+                        new
+                        {
+                            Id = new Guid("3c629d75-5183-452a-8dba-515067f4a837"),
+                            CreatedAt = new DateTime(2023, 12, 23, 18, 1, 41, 194, DateTimeKind.Utc).AddTicks(6439),
+                            Image = "https://picsum.photos/200",
+                            Name = "Books",
+                            UpdatedAt = new DateTime(2023, 12, 23, 18, 1, 41, 194, DateTimeKind.Utc).AddTicks(6439)
+                        },
+                        new
+                        {
+                            Id = new Guid("4728694e-385e-4463-8c31-44c60dc38c24"),
+                            CreatedAt = new DateTime(2023, 12, 23, 18, 1, 41, 194, DateTimeKind.Utc).AddTicks(6441),
+                            Image = "https://picsum.photos/200",
+                            Name = "Sports",
+                            UpdatedAt = new DateTime(2023, 12, 23, 18, 1, 41, 194, DateTimeKind.Utc).AddTicks(6441)
+                        },
+                        new
+                        {
+                            Id = new Guid("69bfa267-b8c6-4d13-9fa2-3dd841682958"),
+                            CreatedAt = new DateTime(2023, 12, 23, 18, 1, 41, 194, DateTimeKind.Utc).AddTicks(6442),
+                            Image = "https://picsum.photos/200",
+                            Name = "Toys",
+                            UpdatedAt = new DateTime(2023, 12, 23, 18, 1, 41, 194, DateTimeKind.Utc).AddTicks(6443)
+                        });
                 });
 
             modelBuilder.Entity("Walmad.Core.src.Entity.Order", b =>
@@ -131,7 +185,10 @@ namespace Walmad.WebAPI.Migrations
                     b.HasIndex("ProductId")
                         .HasDatabaseName("ix_order_products_product_id");
 
-                    b.ToTable("order_products", (string)null);
+                    b.ToTable("order_products", null, t =>
+                        {
+                            t.HasCheckConstraint("CHK_OrderProduct_Quantity_Positive", "quantity >= 0");
+                        });
                 });
 
             modelBuilder.Entity("Walmad.Core.src.Entity.Product", b =>
@@ -184,7 +241,12 @@ namespace Walmad.WebAPI.Migrations
                     b.HasIndex("CategoryId1")
                         .HasDatabaseName("ix_products_category_id1");
 
-                    b.ToTable("products", (string)null);
+                    b.ToTable("products", null, t =>
+                        {
+                            t.HasCheckConstraint("CHK_Product_Inventory_Positive", "inventory >= 0");
+
+                            t.HasCheckConstraint("CHK_Product_Price_Positive", "price >= 0");
+                        });
                 });
 
             modelBuilder.Entity("Walmad.Core.src.Entity.ProductImage", b =>
@@ -251,6 +313,10 @@ namespace Walmad.WebAPI.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("product_id1");
 
+                    b.Property<Guid?>("ProductId2")
+                        .HasColumnType("uuid")
+                        .HasColumnName("product_id2");
+
                     b.Property<byte>("Rating")
                         .HasColumnType("smallint")
                         .HasColumnName("rating");
@@ -275,6 +341,9 @@ namespace Walmad.WebAPI.Migrations
 
                     b.HasIndex("ProductId1")
                         .HasDatabaseName("ix_reviews_product_id1");
+
+                    b.HasIndex("ProductId2")
+                        .HasDatabaseName("ix_reviews_product_id2");
 
                     b.HasIndex("UserId")
                         .HasDatabaseName("ix_reviews_user_id");
@@ -355,7 +424,30 @@ namespace Walmad.WebAPI.Migrations
                     b.HasKey("Id")
                         .HasName("pk_users");
 
+                    b.HasIndex("Email")
+                        .IsUnique()
+                        .HasDatabaseName("ix_users_email");
+
                     b.ToTable("users", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("6174f173-d035-4ed2-81e6-84fdcfd588f4"),
+                            AddressLine1 = "Olympiakatu 12",
+                            AddressLine2 = "C1",
+                            Avatar = "https://picsum.photos/200",
+                            City = "Vaasa",
+                            Country = "Finland",
+                            CreatedAt = new DateTime(2023, 12, 23, 18, 1, 41, 426, DateTimeKind.Utc).AddTicks(3025),
+                            Email = "superadmin@gmail.com",
+                            Name = "SuperAdmin",
+                            Password = "FA-E6-9B-F2-E0-7C-96-96-EC-01-13-7A-A4-19-32-C9-63-B8-49-34-6A-68-33-D7-3C-4D-22-DF-75-DC-C2-ED",
+                            PostCode = 65100,
+                            Role = Role.Admin,
+                            Salt = new byte[] { 166, 62, 16, 174, 235, 140, 75, 93, 118, 35, 210, 130, 27, 221, 153, 13, 196, 83, 117, 11, 46, 251, 65, 123, 61, 157, 63, 186, 76, 200, 217, 12, 1, 182, 246, 170, 74, 7, 156, 95, 87, 24, 119, 170, 13, 191, 4, 9, 243, 228, 130, 115, 143, 51, 60, 151, 237, 20, 0, 209, 22, 187, 59, 23 },
+                            UpdatedAt = new DateTime(2023, 12, 23, 18, 1, 41, 426, DateTimeKind.Utc).AddTicks(3029)
+                        });
                 });
 
             modelBuilder.Entity("Walmad.Core.src.Entity.Order", b =>
@@ -439,6 +531,12 @@ namespace Walmad.WebAPI.Migrations
                         .HasForeignKey("ProductId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .HasConstraintName("fk_reviews_products_product_id1");
+
+                    b.HasOne("Walmad.Core.src.Entity.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductId2")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasConstraintName("fk_reviews_products_product_id2");
 
                     b.HasOne("Walmad.Core.src.Entity.User", "User")
                         .WithMany()

@@ -48,8 +48,27 @@ public class DatabaseContext : DbContext // builder pattern
         modelBuilder.Entity<Order>().HasMany<OrderProduct>().WithOne().OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<Product>().HasMany<Review>().WithOne().OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<User>().HasMany<Review>().WithOne().OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<Product>().HasMany<Review>().WithOne().OnDelete(DeleteBehavior.Cascade);
 
-        // modelBuilder.Entity<Product>().ToTable(p => p.HasCheckConstraint("CHK_Product_Price_Positive", "price >= 0"));
-        // // modelBuilder.Entity<OrderProduct>().ToTable(p => p.HasCheckConstraint("CHK_OrderProduct_Quantity_Positive", "quantity >= 0"));
+        modelBuilder.Entity<Product>().ToTable(p => p.HasCheckConstraint("CHK_Product_Price_Positive", "price >= 0"));
+        modelBuilder.Entity<OrderProduct>().ToTable(p => p.HasCheckConstraint("CHK_OrderProduct_Quantity_Positive", "quantity >= 0"));
+        modelBuilder.Entity<Product>().ToTable(p => p.HasCheckConstraint("CHK_Product_Inventory_Positive", "inventory >= 0"));
+
+        modelBuilder.Entity<Category>(e =>
+        {
+            e.HasData(SeedingData.GetCategories());
+            e.HasIndex(e => e.Name).IsUnique();
+        });
+
+        modelBuilder.Entity<User>(e =>
+        {
+            e.HasData(SeedingData.GetUsers());
+            e.HasIndex(e => e.Email).IsUnique();
+        });
+
+        // modelBuilder.Entity<Product>(e =>
+        // {
+        //     e.HasData(SeedingData.GetProducts());
+        // });
     }
 }

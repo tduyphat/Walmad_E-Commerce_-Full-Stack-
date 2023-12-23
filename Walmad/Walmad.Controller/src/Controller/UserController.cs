@@ -16,40 +16,42 @@ public class UserController : BaseController<User, UserReadDTO, UserCreateDTO, U
     }
 
     // [Authorize(Policy = "SuperAdmin")]
-    // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     [HttpGet()]
     public override ActionResult<IEnumerable<UserReadDTO>> GetAll([FromQuery] GetAllParams options)
     {
         return Ok(_service.GetAll(options));
     }
 
-    // [Authorize(Roles = "Admin")]
+    // change later
     [HttpDelete("{id:guid}")]
     public override ActionResult<bool> DeleteOne([FromRoute] Guid id)
     {
         return Ok(_service.DeleteOne(id));
     }
 
-    // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     [HttpGet("{id:guid}")]
     public override ActionResult<UserReadDTO> GetOneById([FromRoute] Guid id)
     {
         return Ok(_service.GetOneById(id));
     }
-
+    
+    //Change later
     [HttpPatch("{id:guid}")]
     public override ActionResult<UserReadDTO> UpdateOne([FromRoute] Guid id, [FromBody] UserUpdateDTO userUpdateDto)
     {
         return Ok(_service.UpdateOne(id, userUpdateDto));
     }
 
-    [HttpPatch("updatePassword/{id:guid}")]
+    //Change later
+    [HttpPatch("update-password/{id:guid}")]
     public ActionResult<bool> UpdatePassword([FromRoute] Guid id, [FromBody] PasswordChangeForm passwordChangeForm)
     {
         return Ok(_service.UpdatePassword(passwordChangeForm, id));
     }
 
-    [HttpPost("emailAvaiable")]
+    [HttpPost("email-avaiable")]
     public ActionResult<bool> EmailAvailable([FromBody] string email)
     {
         return Ok(_service.EmailAvailable(email));

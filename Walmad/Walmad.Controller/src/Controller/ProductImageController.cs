@@ -13,14 +13,14 @@ public class ProductImageController : BaseController<ProductImage, ProductImageR
     {
     }
 
-    // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     [HttpPost()]
     public override ActionResult<ProductImageReadDTO> CreateOne([FromBody] ProductImageCreateDTO productImageCreateDto)
     {
         return CreatedAtAction(nameof(CreateOne), _service.CreateOne(productImageCreateDto));
     }
 
-    // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id:guid}")]
     public override ActionResult<bool> DeleteOne([FromRoute] Guid id)
     {
@@ -39,7 +39,7 @@ public class ProductImageController : BaseController<ProductImage, ProductImageR
         return Ok(_service.GetOneById(id));
     }
 
-    // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     [HttpPatch("{id:guid}")]
     public override ActionResult<ProductImageReadDTO> UpdateOne([FromRoute] Guid id, [FromBody] ProductImageUpdateDTO productImageUpdateDto)
     {

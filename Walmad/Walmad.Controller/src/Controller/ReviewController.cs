@@ -13,28 +13,41 @@ public class ReviewController : BaseController<Review, ReviewReadDTO, ReviewCrea
     {
     }
 
-    // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Customer")]
+    [HttpPost()]
+    public override ActionResult<ReviewReadDTO> CreateOne([FromBody] ReviewCreateDTO reviewCreateDto)
+    {
+        return Ok(_service.CreateOne(reviewCreateDto));
+    }
+
+    //Change later
     [HttpDelete("{id:guid}")]
     public override ActionResult<bool> DeleteOne([FromRoute] Guid id)
     {
         return Ok(_service.DeleteOne(id));
     }
 
-    // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     [HttpGet()]
     public override ActionResult<IEnumerable<ReviewReadDTO>> GetAll([FromQuery] GetAllParams options)
     {
         return Ok(_service.GetAll(options));
     }
 
-    // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     [HttpGet("{id:guid}")]
     public override ActionResult<ReviewReadDTO> GetOneById([FromRoute] Guid id)
     {
         return Ok(_service.GetOneById(id));
     }
 
-    // [Authorize(Roles = "Admin")]
+    [HttpGet("product/{id:guid}")]
+    public ActionResult<ReviewReadDTO> GetByProduct([FromRoute] Guid id)
+    {
+        return Ok(_service.GetByProduct(id));
+    }
+
+    //Change later
     [HttpPatch("{id:guid}")]
     public override ActionResult<ReviewReadDTO> UpdateOne([FromRoute] Guid id, [FromBody] ReviewUpdateDTO reviewUpdateDto)
     {

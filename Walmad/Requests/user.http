@@ -37,12 +37,13 @@ POST http://localhost:5258/api/v1/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "maria@mail.com",
-  "password": "12345"
+  "email": "superadmin@gmail.com",
+  "password": "SuperAdmin1234"
 }
 
 ###
 GET http://localhost:5258/api/v1/users HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJlYjliOWFhYS02MzYwLTRkZWEtYWQzNy0wNGFhZjA4MDVlOTQiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6InN1cGVyYWRtaW5AZ21haWwuY29tIiwibmJmIjoxNzAzMzU0ODkxLCJleHAiOjE3MDM1Mjc2OTEsImlhdCI6MTcwMzM1NDg5MSwiaXNzIjoiUGhhdCIsImF1ZCI6IlBoYXRFQ29tbWVyY2UifQ.x_elBrQ_VWKlQ4n8U4IsUOx66lLKkzU6XtrM8vr2mak
 
 ###
 GET http://localhost:5258/api/v1/users/0cf0f8e7-6292-408e-87ac-fad7c906d72c HTTP/1.1 HTTP/1.1

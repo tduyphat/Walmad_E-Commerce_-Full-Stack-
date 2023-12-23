@@ -14,21 +14,21 @@ public class CategoryController : BaseController<Category, CategoryReadDTO, Cate
     {
     }
     
-    // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     [HttpPost()]
     public override ActionResult<CategoryReadDTO> CreateOne([FromBody] CategoryCreateDTO categoryCreateDto)
     {
         return CreatedAtAction(nameof(CreateOne), _service.CreateOne(categoryCreateDto));
     }
 
-    // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id:guid}")]
     public override ActionResult<bool> DeleteOne([FromRoute] Guid id)
     {
         return Ok(_service.DeleteOne(id));
     }
 
-    // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     [HttpPatch("{id:guid}")]
     public override ActionResult<CategoryReadDTO> UpdateOne([FromRoute] Guid id, [FromBody] CategoryUpdateDTO categoryUpdateDto)
     {
