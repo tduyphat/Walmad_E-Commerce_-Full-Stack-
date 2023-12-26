@@ -8,8 +8,11 @@ namespace Walmad.WebAPI.src.Repository;
 
 public class ProductRepo : BaseRepo<Product>, IProductRepo
 {
+    private DbSet<OrderProduct> _orderProducts;
+
     public ProductRepo(DatabaseContext databaseContext) : base(databaseContext)
     {
+        _orderProducts = databaseContext.OrderProducts;
     }
 
     public override IEnumerable<Product> GetAll(GetAllParams options)
@@ -43,6 +46,21 @@ public class ProductRepo : BaseRepo<Product>, IProductRepo
 
     public IEnumerable<Product> GetMostPurchased(int topNumber)
     {
-        throw new NotImplementedException();
+        var mostPurchasedProducts = _orderProducts
+                .GroupBy(orderProduct => orderProduct.Product.Id)
+                .Select(group => new
+                {
+                    ProductId = group.Key,
+                    TotalQuantity = group.Sum(item => item.Quantity)
+                })
+                .OrderByDescending(item => item.TotalQuantity)
+                .Take(topNumber)
+                .Join(_data.Include("Images").Include("Category"),
+                    orderItem => orderItem.ProductId,
+                    product => product.Id,
+                    (orderItem, product) => product)
+                .ToArray();
+
+        return mostPurchasedProducts;
     }
 }
