@@ -15,9 +15,11 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5258/api/v1/orders/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJlYjliOWFhYS02MzYwLTRkZWEtYWQzNy0wNGFhZjA4MDVlOTQiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6InN1cGVyYWRtaW5AZ21haWwuY29tIiwibmJmIjoxNzAzNTg0OTAxLCJleHAiOjE3MDM3NTc3MDEsImlhdCI6MTcwMzU4NDkwMSwiaXNzIjoiUGhhdCIsImF1ZCI6IlBoYXRFQ29tbWVyY2UifQ.n9zR_5VpJIJTYDWzYEocWNTVgmirhaQ_tsHI00YEQQ0
 
 ###
-GET http://localhost:5258/api/v1/orders/a9c113b7-398e-4883-871b-2ddfb4570036 HTTP/1.1
+GET http://localhost:5258/api/v1/orders/715e7f75-e1cd-41e8-ad17-a325e1c15ea5 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJlYjliOWFhYS02MzYwLTRkZWEtYWQzNy0wNGFhZjA4MDVlOTQiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6InN1cGVyYWRtaW5AZ21haWwuY29tIiwibmJmIjoxNzAzNTg3NjQxLCJleHAiOjE3MDM3NjA0NDEsImlhdCI6MTcwMzU4NzY0MSwiaXNzIjoiUGhhdCIsImF1ZCI6IlBoYXRFQ29tbWVyY2UifQ.zqW9NsKXyJ9Xqm_i6dAgFHiDPay6_V1PREWAgBrXRNE
 
 ###
 GET http://localhost:5258/api/v1/orders/user/0cf0f8e7-6292-408e-87ac-fad7c906d72c HTTP/1.1

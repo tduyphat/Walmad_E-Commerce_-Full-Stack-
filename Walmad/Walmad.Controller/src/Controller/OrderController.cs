@@ -52,10 +52,13 @@ public class OrderController : BaseController<Order, OrderReadDTO, OrderCreateDT
         }
         else
         {
-            var authorizationResult = _authorizationService
-           .AuthorizeAsync(HttpContext.User, foundOrder, "AdminOrOwnerOrder")
-           .GetAwaiter()
-           .GetResult();
+            // var authorizationTask = _authorizationService.AuthorizeAsync(HttpContext.User, foundOrder, "AdminOrOwnerOrder");
+            // authorizationTask.Wait();
+            // var authorizationResult = authorizationTask.Result;
+
+            var authorizationResult = _authorizationService.AuthorizeAsync(HttpContext.User, foundOrder, "AdminOrOwnerOrder")
+                .GetAwaiter()
+                .GetResult();
 
             if (authorizationResult.Succeeded)
             {

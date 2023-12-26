@@ -44,6 +44,18 @@ builder.Services.AddSwaggerGen(
     }
 );
 
+// CORS
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        policy =>
+        {
+            policy.AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+
 // declare Services
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepo, UserRepo>();
@@ -103,6 +115,8 @@ builder.Services.AddAuthorization(policy =>
 var app = builder.Build();
 
 app.UseMiddleware<ExceptionHandlerMiddleware>();
+
+app.UseCors();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
