@@ -64,25 +64,25 @@ artifacts/
 *.nuget.targets
 
 
-### Ignore unnecessary files in frontend
+### Ignore unnecessary files in client
 
 # dependencies
-frontend/node_modules
+client/node_modules
 
 # testing
-frontend/coverage
+client/coverage
 
 # production
-frontend/build
+client/build
 
 # env files
-frontend/.env
+client/.env
 
-frontend/npm-debug.log*
-frontend/yarn-debug.log*
-frontend/yarn-error.log*
-frontend/yarn.lock
-frontend/package-*.json
+client/npm-debug.log*
+client/yarn-debug.log*
+client/yarn-error.log*
+client/yarn.lock
+client/package-*.json
 
 # VS Code files for those working on multiple tools
 .vscode/*
