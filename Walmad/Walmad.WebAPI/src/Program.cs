@@ -10,6 +10,8 @@ using Walmad.Business.src.Abstraction;
 using Walmad.Business.src.Service;
 using Walmad.Business.src.Shared;
 using Walmad.Core.src.Abstraction;
+using Walmad.WebAPI.src.Authorization;
+
 // using Walmad.WebAPI.src.Authorization;
 using Walmad.WebAPI.src.Database;
 using Walmad.WebAPI.src.Middleware;
@@ -60,7 +62,10 @@ builder.Services.AddScoped<IProductImageRepo, ProductImageRepo>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 
-// builder.Services.AddScoped<CheckAddressHandler>();
+// Resource based auth handlers
+builder.Services.AddSingleton<AdminOrOwnerOrderHandler>();
+builder.Services.AddSingleton<AdminOrOwnerReviewHandler>();
+builder.Services.AddSingleton<AdminOrOwnerAccountHandler>();
 
 // error handler middleware
 builder.Services.AddTransient<ExceptionHandlerMiddleware>();
@@ -90,8 +95,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 // config authorization
 builder.Services.AddAuthorization(policy =>
 {
-    policy.AddPolicy("SuperAdmin", policy => policy.RequireClaim(ClaimTypes.Email, "jim2qwdqwd@gmail.com"));
-    // policy.AddPolicy("MaxLength", policy => policy.AddRequirements(new CheckAddressRequirement(10)));
+    policy.AddPolicy("AdminOrOwnerOrder", policy => policy.Requirements.Add(new AdminOrOwnerOrderRequirement()));
+    policy.AddPolicy("AdminOrOwnerReview", policy => policy.Requirements.Add(new AdminOrOwnerReviewRequirement()));
+    policy.AddPolicy("AdminOrOwnerAccount", policy => policy.Requirements.Add(new AdminOrOwnerAccountRequirement()));
 });
 
 var app = builder.Build();

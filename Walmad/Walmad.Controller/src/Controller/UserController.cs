@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Walmad.Business.src.Abstraction;
 using Walmad.Business.src.DTO;
+using Walmad.Business.src.Shared;
 using Walmad.Core.src.Entity;
 using Walmad.Core.src.Parameter;
 
@@ -11,11 +12,13 @@ namespace Walmad.Controller.src.Controller;
 [Route("api/v1/[controller]s")]
 public class UserController : BaseController<User, UserReadDTO, UserCreateDTO, UserUpdateDTO, IUserService>
 {
-    public UserController(IUserService service) : base(service)
+    private IAuthorizationService _authorizationService;
+
+    public UserController(IUserService service, IAuthorizationService authorizationService) : base(service)
     {
+        _authorizationService = authorizationService;
     }
 
-    // [Authorize(Policy = "SuperAdmin")]
     [Authorize(Roles = "Admin")]
     [HttpGet()]
     public override ActionResult<IEnumerable<UserReadDTO>> GetAll([FromQuery] GetAllParams options)
@@ -23,11 +26,34 @@ public class UserController : BaseController<User, UserReadDTO, UserCreateDTO, U
         return Ok(_service.GetAll(options));
     }
 
-    // change later
     [HttpDelete("{id:guid}")]
     public override ActionResult<bool> DeleteOne([FromRoute] Guid id)
     {
-        return Ok(_service.DeleteOne(id));
+        UserReadDTO foundUser = _service.GetOneById(id);
+        if (foundUser is null)
+        {
+            throw CustomExeption.NotFoundException("User not found");
+        }
+        else
+        {
+            var authorizationResult = _authorizationService
+           .AuthorizeAsync(HttpContext.User, foundUser, "AdminOrOwnerAccount")
+           .GetAwaiter()
+           .GetResult();
+
+            if (authorizationResult.Succeeded)
+            {
+                return Ok(_service.DeleteOne(id));
+            }
+            else if (User.Identity!.IsAuthenticated)
+            {
+                return new ForbidResult();
+            }
+            else
+            {
+                return new ChallengeResult();
+            }
+        }
     }
 
     [Authorize(Roles = "Admin")]
@@ -36,19 +62,66 @@ public class UserController : BaseController<User, UserReadDTO, UserCreateDTO, U
     {
         return Ok(_service.GetOneById(id));
     }
-    
+
     //Change later
     [HttpPatch("{id:guid}")]
     public override ActionResult<UserReadDTO> UpdateOne([FromRoute] Guid id, [FromBody] UserUpdateDTO userUpdateDto)
     {
-        return Ok(_service.UpdateOne(id, userUpdateDto));
+        UserReadDTO foundUser = _service.GetOneById(id);
+        if (foundUser is null)
+        {
+            throw CustomExeption.NotFoundException("User not found");
+        }
+        else
+        {
+            var authorizationResult = _authorizationService
+           .AuthorizeAsync(HttpContext.User, foundUser, "AdminOrOwnerAccount")
+           .GetAwaiter()
+           .GetResult();
+
+            if (authorizationResult.Succeeded)
+            {
+                return Ok(_service.UpdateOne(id, userUpdateDto));
+            }
+            else if (User.Identity!.IsAuthenticated)
+            {
+                return new ForbidResult();
+            }
+            else
+            {
+                return new ChallengeResult();
+            }
+        }
     }
 
-    //Change later
     [HttpPatch("update-password/{id:guid}")]
     public ActionResult<bool> UpdatePassword([FromRoute] Guid id, [FromBody] PasswordChangeForm passwordChangeForm)
     {
-        return Ok(_service.UpdatePassword(passwordChangeForm, id));
+        UserReadDTO foundUser = _service.GetOneById(id);
+        if (foundUser is null)
+        {
+            throw CustomExeption.NotFoundException("User not found");
+        }
+        else
+        {
+            var authorizationResult = _authorizationService
+           .AuthorizeAsync(HttpContext.User, foundUser, "AdminOrOwnerAccount")
+           .GetAwaiter()
+           .GetResult();
+
+            if (authorizationResult.Succeeded)
+            {
+                return Ok(_service.UpdatePassword(passwordChangeForm, id));
+            }
+            else if (User.Identity!.IsAuthenticated)
+            {
+                return new ForbidResult();
+            }
+            else
+            {
+                return new ChallengeResult();
+            }
+        }
     }
 
     [HttpPost("email-avaiable")]

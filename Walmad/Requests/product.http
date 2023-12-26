@@ -5,14 +5,15 @@ GET http://localhost:5258/api/v1/products/7a9f4623-a0af-4d00-87fd-ec6b379941c8 H
 
 ###
 POST http://localhost:5258/api/v1/products HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJlYjliOWFhYS02MzYwLTRkZWEtYWQzNy0wNGFhZjA4MDVlOTQiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6InN1cGVyYWRtaW5AZ21haWwuY29tIiwibmJmIjoxNzAzNTM1OTkxLCJleHAiOjE3MDM3MDg3OTEsImlhdCI6MTcwMzUzNTk5MSwiaXNzIjoiUGhhdCIsImF1ZCI6IlBoYXRFQ29tbWVyY2UifQ.J059GSrR6y7QABXm5DLmEfB-67BYtpYQiwsdMg4hCbk
 Content-Type: application/json
 
 {
-  "inventory": 500,
-  "title": "lv bag",
-  "price": 90,
-  "description": "really fancy",
-  "categoryId": "01e6b770-207c-40e2-8f4a-fcf9253d8a04",
+  "inventory": 400,
+  "title": "Logitech G Pro X",
+  "price": 120,
+  "description": "Nice Gaming Mouse",
+  "categoryId": "5846635c-a18b-4dfa-89c7-c75ca344166e",
   "images": [
     {
       "url": "https://picsum.photos/200"

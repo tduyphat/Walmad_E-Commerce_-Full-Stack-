@@ -17,11 +17,11 @@ public class ReviewService : BaseService<Review, ReviewReadDTO, ReviewCreateDTO,
     _userRepo = userRepo;
   }
 
-  public override ReviewReadDTO CreateOne(ReviewCreateDTO reviewCreateDto)
+  public ReviewReadDTO CreateOne(Guid userId, ReviewCreateDTO reviewCreateDto)
   {
     var newReview = _mapper.Map<ReviewCreateDTO, Review>(reviewCreateDto);
     var foundProduct = _productRepo.GetOneById(reviewCreateDto.ProductID);
-    var foundUser = _userRepo.GetOneById(reviewCreateDto.UserID);
+    var foundUser = _userRepo.GetOneById(userId);
     if (foundProduct != null && foundUser != null)
     {
       newReview.Product = foundProduct;

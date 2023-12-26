@@ -18,9 +18,9 @@ public class OrderService : BaseService<Order, OrderReadDTO, OrderCreateDTO, Ord
         _productRepo = productRepo;
     }
 
-    public override OrderReadDTO CreateOne(OrderCreateDTO orderCreateDto)
+    public OrderReadDTO CreateOne(Guid userId, OrderCreateDTO orderCreateDto)
     {
-        var foundUser = _userRepo.GetOneById(orderCreateDto.UserId);
+        var foundUser = _userRepo.GetOneById(userId);
         if (foundUser is null)
         {
             throw CustomExeption.NotFoundException();

@@ -7,4 +7,5 @@ namespace Walmad.Business.src;
 public interface IReviewService : IBaseService<Review, ReviewReadDTO, ReviewCreateDTO, ReviewUpdateDTO>
 {
     IEnumerable<ReviewReadDTO> GetByProduct(Guid productId);
+    ReviewReadDTO CreateOne(Guid userId, ReviewCreateDTO reviewCreateDto);
 }

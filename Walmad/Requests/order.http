@@ -1,12 +1,13 @@
 POST http://localhost:5258/api/v1/orders HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJmZmYxNzM2NC0zYjE3LTQwMGMtOTkwNy01OTM0MTNmZmIyNjAiLCJyb2xlIjoiQ3VzdG9tZXIiLCJlbWFpbCI6Im1hcmlhQG1haWwuY29tIiwibmJmIjoxNzAzNTM2Mjg0LCJleHAiOjE3MDM3MDkwODQsImlhdCI6MTcwMzUzNjI4NCwiaXNzIjoiUGhhdCIsImF1ZCI6IlBoYXRFQ29tbWVyY2UifQ.GlesCKneE75Wsh168yFkhVfoRTN9tzMQ7oIXlZB07nU
 Content-Type: application/json
 
 {
-  "userId": "0cf0f8e7-6292-408e-87ac-fad7c906d72c",
+  "userId": "fff17364-3b17-400c-9907-593413ffb260",
   "orderProducts": [
     {
-      "productId": "704f67c6-7b5d-4250-acca-1ef4dc655a07",
-      "quantity": 500
+      "productId": "90c065b8-b8a0-43d1-8cba-dc517f209a91",
+      "quantity": 20
     }
   ],
   "orderStatus": "Pending"

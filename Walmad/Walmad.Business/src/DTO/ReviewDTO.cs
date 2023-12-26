@@ -14,7 +14,6 @@ public class ReviewCreateDTO
 {
     public byte Rating { get; set; }
     public string Content { get; set; }
-    public Guid UserID { get; set; }
     public Guid ProductID { get; set; }
 }
 

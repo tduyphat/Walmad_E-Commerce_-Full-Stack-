@@ -1,7 +1,9 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Walmad.Business.src;
 using Walmad.Business.src.DTO;
+using Walmad.Business.src.Shared;
 using Walmad.Core.src.Entity;
 using Walmad.Core.src.Parameter;
 
@@ -9,22 +11,49 @@ namespace Walmad.Controller.src.Controller;
 
 public class ReviewController : BaseController<Review, ReviewReadDTO, ReviewCreateDTO, ReviewUpdateDTO, IReviewService>
 {
-    public ReviewController(IReviewService service) : base(service)
+    private readonly IAuthorizationService _authorizationService;
+
+    public ReviewController(IReviewService service, IAuthorizationService authorizationService) : base(service)
     {
+        _authorizationService = authorizationService;
     }
 
     [Authorize(Roles = "Customer")]
     [HttpPost()]
     public override ActionResult<ReviewReadDTO> CreateOne([FromBody] ReviewCreateDTO reviewCreateDto)
     {
-        return Ok(_service.CreateOne(reviewCreateDto));
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+        return CreatedAtAction(nameof(CreateOne), _service.CreateOne(Guid.Parse(userId), reviewCreateDto));
     }
 
-    //Change later
     [HttpDelete("{id:guid}")]
     public override ActionResult<bool> DeleteOne([FromRoute] Guid id)
     {
-        return Ok(_service.DeleteOne(id));
+        ReviewReadDTO? foundReview = _service.GetOneById(id);
+        if (foundReview is null)
+        {
+            throw CustomExeption.NotFoundException("Review not found");
+        }
+        else
+        {
+            var authorizationResult = _authorizationService
+           .AuthorizeAsync(HttpContext.User, foundReview, "AdminOrOwnerReview")
+           .GetAwaiter()
+           .GetResult();
+
+            if (authorizationResult.Succeeded)
+            {
+                return Ok(_service.DeleteOne(id));
+            }
+            else if (User.Identity!.IsAuthenticated)
+            {
+                return new ForbidResult();
+            }
+            else
+            {
+                return new ChallengeResult();
+            }
+        }
     }
 
     [Authorize(Roles = "Admin")]
@@ -51,6 +80,30 @@ public class ReviewController : BaseController<Review, ReviewReadDTO, ReviewCrea
     [HttpPatch("{id:guid}")]
     public override ActionResult<ReviewReadDTO> UpdateOne([FromRoute] Guid id, [FromBody] ReviewUpdateDTO reviewUpdateDto)
     {
-        return Ok(_service.UpdateOne(id, reviewUpdateDto));
+        ReviewReadDTO? foundReview = _service.GetOneById(id);
+        if (foundReview is null)
+        {
+            throw CustomExeption.NotFoundException("Review not found");
+        }
+        else
+        {
+            var authorizationResult = _authorizationService
+           .AuthorizeAsync(HttpContext.User, foundReview, "AdminOrOwnerReview")
+           .GetAwaiter()
+           .GetResult();
+
+            if (authorizationResult.Succeeded)
+            {
+                return Ok(_service.UpdateOne(id, reviewUpdateDto));
+            }
+            else if (User.Identity!.IsAuthenticated)
+            {
+                return new ForbidResult();
+            }
+            else
+            {
+                return new ChallengeResult();
+            }
+        }
     }
 }
