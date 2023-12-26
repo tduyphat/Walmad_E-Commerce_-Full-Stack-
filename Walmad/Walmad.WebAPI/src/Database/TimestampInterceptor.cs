@@ -8,7 +8,7 @@ public class TimestampInterceptor : SaveChangesInterceptor
 {
     public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
     {
-        var changedData = eventData.Context.ChangeTracker.Entries(); //give collections of all entities experiencing the changes: added, updated, deleted
+        var changedData = eventData.Context!.ChangeTracker.Entries(); //give collections of all entities experiencing the changes: added, updated, deleted
         var updatedEntries = changedData.Where(entity => entity.State == EntityState.Modified);
         var addedEntries = changedData.Where(entity => entity.State == EntityState.Added);
 

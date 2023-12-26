@@ -18,12 +18,36 @@ public class OrderService : BaseService<Order, OrderReadDTO, OrderCreateDTO, Ord
         _productRepo = productRepo;
     }
 
+    public bool CancelOrder(Guid id)
+    {
+        var foundOrder = _repo.GetOneById(id);
+        DateTime currentDate = DateTime.Now;
+        if (foundOrder is null)
+        {
+            return false;
+        }
+        else
+        {
+            TimeSpan timeDifference = currentDate - foundOrder.CreatedAt;
+            if (timeDifference <= TimeSpan.FromHours(2))
+            {
+                foundOrder.OrderStatus = OrderStatus.Cancelled;
+                _repo.UpdateOne(foundOrder);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+
     public OrderReadDTO CreateOne(Guid userId, OrderCreateDTO orderCreateDto)
     {
         var foundUser = _userRepo.GetOneById(userId);
         if (foundUser is null)
         {
-            throw CustomExeption.NotFoundException();
+            throw CustomExeption.NotFoundException("User not found");
         }
         else
         {
@@ -59,7 +83,7 @@ public class OrderService : BaseService<Order, OrderReadDTO, OrderCreateDTO, Ord
         }
         else
         {
-            throw CustomExeption.NotFoundException();
+            throw CustomExeption.NotFoundException("User not found");
         }
     }
 }

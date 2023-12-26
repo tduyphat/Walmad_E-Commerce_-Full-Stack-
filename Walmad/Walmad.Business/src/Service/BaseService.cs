@@ -35,7 +35,7 @@ where TRepo : IBaseRepo<T>
         }
         else
         {
-            throw CustomExeption.NotFoundException("Id not found");
+            return false;
         }
     }
 

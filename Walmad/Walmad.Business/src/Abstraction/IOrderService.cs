@@ -7,4 +7,5 @@ public interface IOrderService : IBaseService<Order, OrderReadDTO, OrderCreateDT
 {
     IEnumerable<OrderReadDTO> GetByUser(Guid userId);
     OrderReadDTO CreateOne(Guid userId, OrderCreateDTO orderCreateDto);
+    bool CancelOrder(Guid id);
 }

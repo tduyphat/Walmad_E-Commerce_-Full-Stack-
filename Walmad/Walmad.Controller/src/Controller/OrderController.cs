@@ -108,4 +108,34 @@ public class OrderController : BaseController<Order, OrderReadDTO, OrderCreateDT
             }
         }
     }
+
+    [HttpPatch("cancel-order/{id:guid}")]
+    public ActionResult<bool> CancelOrder([FromRoute] Guid id)
+    {
+        OrderReadDTO? foundOrder = _service.GetOneById(id);
+        if (foundOrder is null)
+        {
+            throw CustomExeption.NotFoundException("Order not found");
+        }
+        else
+        {
+            var authorizationResult = _authorizationService
+           .AuthorizeAsync(HttpContext.User, foundOrder, "AdminOrOwnerOrder")
+           .GetAwaiter()
+           .GetResult();
+
+            if (authorizationResult.Succeeded)
+            {
+                return Ok(_service.CancelOrder(id));
+            }
+            else if (User.Identity!.IsAuthenticated)
+            {
+                return new ForbidResult();
+            }
+            else
+            {
+                return new ChallengeResult();
+            }
+        }
+    }
 }
