@@ -27,7 +27,7 @@ public class DatabaseContext : DbContext // builder pattern
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        var dataSourceBuilder = new NpgsqlDataSourceBuilder(_config.GetConnectionString("LocalDb"));
+        var dataSourceBuilder = new NpgsqlDataSourceBuilder(_config.GetConnectionString("RemoteDb"));
         dataSourceBuilder.MapEnum<Role>();
         dataSourceBuilder.MapEnum<OrderStatus>();
         var dataSource = dataSourceBuilder.Build();
