@@ -23,6 +23,7 @@ public class SeedingData
     private static List<Product> GenerateProductsForCategory(Category category, int count)
     {
         var products = new List<Product>();
+        // var productImages = new List<ProductImage>();
 
         for (int i = 1; i <= count; i++)
         {
@@ -33,14 +34,27 @@ public class SeedingData
                 Title = $"{category.Name} Product {i}",
                 Price = (decimal)(i * 10),
                 Description = $"Description for {category.Name} Product {i}",
-                Category = category,
-                Images = new List<ProductImage>
-                    {
-                        new ProductImage { Id = Guid.NewGuid(), CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow, Url = "https://picsum.photos/200" }
-                    },
+                CategoryId = category.Id,
+                // Images = new List<ProductImage>
+                //     {
+                //         new ProductImage { Id = Guid.NewGuid(), CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow, Url = "https://picsum.photos/200" }
+                //     },
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
             };
+
+            // var productImage = new ProductImage
+            // {
+            //     Id = Guid.NewGuid(),
+            //     CreatedAt = DateTime.UtcNow,
+            //     UpdatedAt = DateTime.UtcNow,
+            //     Url = "https://picsum.photos/200",
+            //     ProductId = product.Id  // Set the product ID here
+            // };
+
+            // productImages.Add(productImage);
+            // product.Images = productImages;
+
             products.Add(product);
         }
 

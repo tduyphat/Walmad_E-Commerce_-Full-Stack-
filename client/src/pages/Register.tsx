@@ -65,7 +65,7 @@ const Register = () => {
   const handleSubmit = async () => {
     try {
       const result = await axios.post(
-        "https://api.escuelajs.co/api/v1/users",
+        "${process.env.REACT_APP_API_URL}/users",
         form
       );
       if (result.status === 201) {

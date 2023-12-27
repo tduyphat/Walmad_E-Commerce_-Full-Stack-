@@ -4,7 +4,7 @@ import { usersData } from "../data/usersData";
 export const access_token = "my-access-token";
 export const handlers = [
   rest.post(
-    "https://api.escuelajs.co/api/v1/auth/login",
+    "${process.env.REACT_APP_API_URL}/auth/login",
     async (req, res, ctx) => {
       const { email, password } = await req.json();
       console.log(email, password);
@@ -20,7 +20,7 @@ export const handlers = [
       }
     }
   ),
-  rest.get("https://api.escuelajs.co/api/v1/auth/profile", (req, res, ctx) => {
+  rest.get("${process.env.REACT_APP_API_URL}/auth/profile", (req, res, ctx) => {
     const token = req.headers.get("Authorization")?.split(" ")[1];
     const originalToken = token?.split("_")[0];
     const userId = token?.split("_")[1];

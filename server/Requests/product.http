@@ -13,7 +13,7 @@ Content-Type: application/json
   "title": "Logitech G Pro X",
   "price": 120,
   "description": "Nice Gaming Mouse",
-  "categoryId": "5846635c-a18b-4dfa-89c7-c75ca344166e",
+  "categoryId": "37dcf000-7457-4f4c-9c10-7613681a39e0",
   "images": [
     {
       "url": "https://picsum.photos/200"

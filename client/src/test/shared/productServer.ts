@@ -7,7 +7,7 @@ import { categoriesData } from "../data/categoriesData";
 
 export const handlers = [
   rest.delete(
-    "https://api.escuelajs.co/api/v1/products/:id",
+    "${process.env.REACT_APP_API_URL}/products/:id",
     async (req, res, ctx) => {
       const { id } = req.params;
       if (productsData.find((product) => product.id === Number(id))) {
@@ -18,7 +18,7 @@ export const handlers = [
     }
   ),
   rest.post(
-    "https://api.escuelajs.co/api/v1/products",
+    "${process.env.REACT_APP_API_URL}/products",
     async (req, res, ctx) => {
       const input: CreateProductInput = await req.json();
       const category = categoriesData.find(
@@ -51,7 +51,7 @@ export const handlers = [
     }
   ),
   rest.put(
-    "https://api.escuelajs.co/api/v1/products/:id",
+    "${process.env.REACT_APP_API_URL}/products/:id",
     async (req, res, ctx) => {
       const update = await req.json();
       const { id } = req.params;

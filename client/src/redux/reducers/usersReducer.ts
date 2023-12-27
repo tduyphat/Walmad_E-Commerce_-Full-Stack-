@@ -14,7 +14,7 @@ export const loginUserAsync = createAsyncThunk<
 >("loginUserAsync", async (cred, { rejectWithValue, dispatch }) => {
   try {
     const result = await axios.post(
-      "https://api.escuelajs.co/api/v1/auth/login",
+      "${process.env.REACT_APP_API_URL}/auth/login",
       cred
     );
     const { access_token } = result.data;
@@ -43,7 +43,7 @@ export const authenticateUserAsync = createAsyncThunk<
 >("authenticateUserAsync", async (access_token, { rejectWithValue }) => {
   try {
     const getprofile = await axios.get(
-      "https://api.escuelajs.co/api/v1/auth/profile",
+      "${process.env.REACT_APP_API_URL}/auth/profile",
       {
         headers: {
           Authorization: `Bearer ${access_token}`,

@@ -1,6 +1,8 @@
 using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+
 // using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -75,9 +77,9 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 
 // Resource based auth handlers
-builder.Services.AddSingleton<AdminOrOwnerOrderHandler>();
-builder.Services.AddSingleton<AdminOrOwnerReviewHandler>();
-builder.Services.AddSingleton<AdminOrOwnerAccountHandler>();
+builder.Services.AddSingleton<IAuthorizationHandler, AdminOrOwnerOrderHandler>();
+builder.Services.AddSingleton<IAuthorizationHandler, AdminOrOwnerReviewHandler>();
+builder.Services.AddSingleton<IAuthorizationHandler, AdminOrOwnerAccountHandler>();
 
 // error handler middleware
 builder.Services.AddTransient<ExceptionHandlerMiddleware>();

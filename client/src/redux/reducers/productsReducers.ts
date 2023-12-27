@@ -20,7 +20,7 @@ export const fetchAllProductsAsync = createAsyncThunk(
   async ({ limit, offset }: PaginationQuery, { rejectWithValue }) => {
     try {
       const result = await axios.get(
-        `https://api.escuelajs.co/api/v1/products?offset=${offset}&limit=${limit}`
+        `${process.env.REACT_APP_API_URL}/products?offset=${offset}&limit=${limit}`
       );
       const data: Product[] = result.data;
       return data;
@@ -36,7 +36,7 @@ export const createProductAsync = createAsyncThunk(
   async (newProduct: CreateProductInput, { rejectWithValue }) => {
     try {
       const result = await axios.post<Product>(
-        "https://api.escuelajs.co/api/v1/products/",
+        "${process.env.REACT_APP_API_URL}/products/",
         newProduct
       );
       return result.data;
@@ -52,7 +52,7 @@ export const updateProductAsync = createAsyncThunk(
   async ({id, update}: UpdateProductInput, { rejectWithValue }) => {
     try {
       const result = await axios.put<Product>(
-        `https://api.escuelajs.co/api/v1/products/${id}`,
+        `${process.env.REACT_APP_API_URL}/products/${id}`,
         update
       );
       return result.data;
@@ -68,7 +68,7 @@ export const deleteProductAsync = createAsyncThunk(
   async (id: number, { rejectWithValue }) => {
     try {
       const result = await axios.delete<boolean>(
-        `https://api.escuelajs.co/api/v1/products/${id}`
+        `${process.env.REACT_APP_API_URL}/products/${id}`
       );
       if (!result.data) {
         throw new Error("The product does not exist!");

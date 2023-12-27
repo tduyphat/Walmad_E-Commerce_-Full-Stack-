@@ -7,5 +7,6 @@ public class Product : BaseEntity
     public decimal Price { get; set; }
     public string Description { get; set; }
     public Category Category { get; set; }
+    public Guid CategoryId { get; set; }
     public IEnumerable<ProductImage> Images { get; set; }
 }

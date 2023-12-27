@@ -43,12 +43,11 @@ public class DatabaseContext : DbContext // builder pattern
         modelBuilder.HasPostgresEnum<Role>();
         modelBuilder.HasPostgresEnum<OrderStatus>();
         
-        modelBuilder.Entity<Product>().HasOne<Category>().WithMany().OnDelete(DeleteBehavior.Cascade);
-        modelBuilder.Entity<Product>().HasMany<ProductImage>().WithOne().OnDelete(DeleteBehavior.Cascade);
+        // modelBuilder.Entity<Product>().HasOne<Category>().WithMany().OnDelete(DeleteBehavior.Cascade);
+        // modelBuilder.Entity<Product>().HasMany<ProductImage>().WithOne().OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<Order>().HasMany<OrderProduct>().WithOne().OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<Product>().HasMany<Review>().WithOne().OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<User>().HasMany<Review>().WithOne().OnDelete(DeleteBehavior.Cascade);
-        modelBuilder.Entity<Product>().HasMany<Review>().WithOne().OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<Product>().ToTable(p => p.HasCheckConstraint("CHK_Product_Price_Positive", "price >= 0"));
         modelBuilder.Entity<OrderProduct>().ToTable(p => p.HasCheckConstraint("CHK_OrderProduct_Quantity_Positive", "quantity >= 0"));
@@ -66,9 +65,9 @@ public class DatabaseContext : DbContext // builder pattern
             e.HasIndex(e => e.Email).IsUnique();
         });
 
-        // modelBuilder.Entity<Product>(e =>
-        // {
-        //     e.HasData(SeedingData.GetProducts());
-        // });
+        modelBuilder.Entity<Product>(e =>
+        {
+            e.HasData(SeedingData.GetProducts());
+        });
     }
 }
