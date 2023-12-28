@@ -27,12 +27,7 @@ public class DatabaseContext : DbContext // builder pattern
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        var dataSourceBuilder = new NpgsqlDataSourceBuilder(_config.GetConnectionString("RemoteDb"));
-        dataSourceBuilder.MapEnum<Role>();
-        dataSourceBuilder.MapEnum<OrderStatus>();
-        var dataSource = dataSourceBuilder.Build();
         optionsBuilder
-            .UseNpgsql(dataSource)
             .UseSnakeCaseNamingConvention()
             .AddInterceptors(new TimestampInterceptor());
         base.OnConfiguring(optionsBuilder);
@@ -42,7 +37,7 @@ public class DatabaseContext : DbContext // builder pattern
     {
         modelBuilder.HasPostgresEnum<Role>();
         modelBuilder.HasPostgresEnum<OrderStatus>();
-        
+
         // modelBuilder.Entity<Product>().HasOne<Category>().WithMany().OnDelete(DeleteBehavior.Cascade);
         // modelBuilder.Entity<Product>().HasMany<ProductImage>().WithOne().OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<Order>().HasMany<OrderProduct>().WithOne().OnDelete(DeleteBehavior.Cascade);
@@ -68,6 +63,11 @@ public class DatabaseContext : DbContext // builder pattern
         modelBuilder.Entity<Product>(e =>
         {
             e.HasData(SeedingData.GetProducts());
+        });
+
+        modelBuilder.Entity<ProductImage>(e =>
+        {
+            e.HasData(SeedingData.GetProductImages());
         });
     }
 }

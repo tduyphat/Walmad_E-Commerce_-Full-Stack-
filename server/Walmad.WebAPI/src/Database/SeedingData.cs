@@ -71,11 +71,29 @@ public class SeedingData
         products.AddRange(GenerateProductsForCategory(category5, 20));
         products.AddRange(GenerateProductsForCategory(category6, 20));
 
-        // foreach(var product in products)
-        // {
-        //     Console.WriteLine(product.Category.Id);
-        // }
         return products;
+    }
+
+    public static List<ProductImage> GetProductImages()
+    {
+        var productImages = new List<ProductImage>();
+        List<Product> products = GetProducts();
+        foreach (var product in products)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                var productImage = new ProductImage
+                {
+                    Id = Guid.NewGuid(),
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.UtcNow,
+                    Url = "https://picsum.photos/200",
+                    ProductId = product.Id
+                };
+                productImages.Add(productImage);
+            }
+        }
+        return productImages;
     }
 
     public static List<User> GetUsers()

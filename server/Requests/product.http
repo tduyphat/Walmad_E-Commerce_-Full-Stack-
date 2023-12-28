@@ -5,15 +5,15 @@ GET http://localhost:5258/api/v1/products/7a9f4623-a0af-4d00-87fd-ec6b379941c8 H
 
 ###
 POST http://localhost:5258/api/v1/products HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJlYjliOWFhYS02MzYwLTRkZWEtYWQzNy0wNGFhZjA4MDVlOTQiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6InN1cGVyYWRtaW5AZ21haWwuY29tIiwibmJmIjoxNzAzNTM1OTkxLCJleHAiOjE3MDM3MDg3OTEsImlhdCI6MTcwMzUzNTk5MSwiaXNzIjoiUGhhdCIsImF1ZCI6IlBoYXRFQ29tbWVyY2UifQ.J059GSrR6y7QABXm5DLmEfB-67BYtpYQiwsdMg4hCbk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJjMDc4ZTQzYy03ZDA5LTQ0ZjAtOGI1OS0wMzNhMTg5MDJkNDgiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6InN1cGVyYWRtaW5AZ21haWwuY29tIiwibmJmIjoxNzAzNzUyOTI0LCJleHAiOjE3MDM5MjU3MjQsImlhdCI6MTcwMzc1MjkyNCwiaXNzIjoiUGhhdCIsImF1ZCI6IlBoYXRFQ29tbWVyY2UifQ.2Q7dn60HDiepLPx-7gIVi4uYNFWQmXJ78qkj47bJy04
 Content-Type: application/json
 
 {
-  "inventory": 400,
-  "title": "Logitech G Pro X",
-  "price": 120,
-  "description": "Nice Gaming Mouse",
-  "categoryId": "37dcf000-7457-4f4c-9c10-7613681a39e0",
+  "inventory": 100,
+  "title": "Razer Blade",
+  "price": 1500,
+  "description": "expensive",
+  "categoryId": "b6ca78a9-37fd-4ad7-ae19-94108cd09654",
   "images": [
     {
       "url": "https://picsum.photos/200"

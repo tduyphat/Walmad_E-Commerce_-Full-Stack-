@@ -2,16 +2,20 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
+
 
 // using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Npgsql;
 using Swashbuckle.AspNetCore.Filters;
 using Walmad.Business.src;
 using Walmad.Business.src.Abstraction;
 using Walmad.Business.src.Service;
 using Walmad.Business.src.Shared;
 using Walmad.Core.src.Abstraction;
+using Walmad.Core.src.Entity;
 using Walmad.WebAPI.src.Authorization;
 
 // using Walmad.WebAPI.src.Authorization;
@@ -88,7 +92,12 @@ builder.Services.AddTransient<ExceptionHandlerMiddleware>();
 builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);
 
 //Add database context service
-builder.Services.AddDbContext<DatabaseContext>();
+var dataSourceBuilder = new NpgsqlDataSourceBuilder(builder.Configuration.GetConnectionString("LocalDb"));
+dataSourceBuilder.MapEnum<Role>();
+dataSourceBuilder.MapEnum<OrderStatus>();
+var dataSource = dataSourceBuilder.Build();
+
+builder.Services.AddDbContext<DatabaseContext>(option => option.UseNpgsql(dataSource));
 
 // config authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>

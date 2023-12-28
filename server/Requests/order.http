@@ -1,11 +1,11 @@
 POST http://localhost:5258/api/v1/orders HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIzZTI2YWM2Mi01YTE5LTQ3NjktODI0ZC1mYzMwMWY2MzY3MzIiLCJyb2xlIjoiQ3VzdG9tZXIiLCJlbWFpbCI6Im1hcmlhQG1haWwuY29tIiwibmJmIjoxNzAzNjkxODIyLCJleHAiOjE3MDM4NjQ2MjIsImlhdCI6MTcwMzY5MTgyMiwiaXNzIjoiUGhhdCIsImF1ZCI6IlBoYXRFQ29tbWVyY2UifQ.LYD2rUm28B_ipQ32d_MTaBxWUpy-ZX0GO1b5a6iktNY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI2YmUwYmRhZC0wYzAxLTRiMzUtYjhlYS04ZmFjMGJkOTg5MDgiLCJyb2xlIjoiQ3VzdG9tZXIiLCJlbWFpbCI6Im1hcmlhQG1haWwuY29tIiwibmJmIjoxNzAzNzUzMDIyLCJleHAiOjE3MDM5MjU4MjIsImlhdCI6MTcwMzc1MzAyMiwiaXNzIjoiUGhhdCIsImF1ZCI6IlBoYXRFQ29tbWVyY2UifQ.VtdnfLjV_swh0UgTo82PDCy5jRZt0pcNdpSeMsdWvQM
 Content-Type: application/json
 
 {
   "orderProducts": [
     {
-      "productId": "6ee34de1-133d-4433-96ba-ab62696bc7ba",
+      "productId": "5993dbdf-4b60-4ca6-b068-655e02179119",
       "quantity": 20
     }
   ],
