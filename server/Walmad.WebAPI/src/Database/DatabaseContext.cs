@@ -62,7 +62,7 @@ public class DatabaseContext : DbContext // builder pattern
 
         modelBuilder.Entity<Product>(e =>
         {
-            e.HasData(SeedingData.GetProducts());
+            e.HasData(SeedingData.Products);
         });
 
         modelBuilder.Entity<ProductImage>(e =>

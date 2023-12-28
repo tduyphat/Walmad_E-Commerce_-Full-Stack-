@@ -74,11 +74,12 @@ public class SeedingData
         return products;
     }
 
+    public static List<Product> Products = GetProducts();
+
     public static List<ProductImage> GetProductImages()
     {
         var productImages = new List<ProductImage>();
-        List<Product> products = GetProducts();
-        foreach (var product in products)
+        foreach (var product in Products)
         {
             for (int i = 0; i < 3; i++)
             {
