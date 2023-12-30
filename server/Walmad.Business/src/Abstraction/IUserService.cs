@@ -8,4 +8,5 @@ public interface IUserService : IBaseService<User, UserReadDTO, UserCreateDTO, U
 {
     bool UpdatePassword(PasswordChangeForm passwordChangeForm, Guid id);
     bool EmailAvailable(string email);
+    UserReadDTO UpdateRole(Guid id, UserRoleUpdateDTO userRoleUpdateDto);
 }

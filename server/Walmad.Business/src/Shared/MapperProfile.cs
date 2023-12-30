@@ -15,6 +15,7 @@ public class MapperProfile : Profile
             // .ForMember(dest => dest.Addresses, map => map.MapFrom(source => source.Addresses as IEnumerable<Address>))
             ;
         CreateMap<UserUpdateDTO, User>().ForAllMembers(opt => opt.Condition((src, dest, member) => member != null));
+        CreateMap<UserRoleUpdateDTO, User>();
 
         CreateMap<Category, CategoryReadDTO>();
         CreateMap<CategoryCreateDTO, Category>();

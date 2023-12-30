@@ -1,12 +1,16 @@
 POST http://localhost:5258/api/v1/orders HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI2YmUwYmRhZC0wYzAxLTRiMzUtYjhlYS04ZmFjMGJkOTg5MDgiLCJyb2xlIjoiQ3VzdG9tZXIiLCJlbWFpbCI6Im1hcmlhQG1haWwuY29tIiwibmJmIjoxNzAzNzUzMDIyLCJleHAiOjE3MDM5MjU4MjIsImlhdCI6MTcwMzc1MzAyMiwiaXNzIjoiUGhhdCIsImF1ZCI6IlBoYXRFQ29tbWVyY2UifQ.VtdnfLjV_swh0UgTo82PDCy5jRZt0pcNdpSeMsdWvQM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJiM2Y5NGJjNy00MGJiLTRjMmEtODY2Ni1mZTJjOTE4Zjc5YTQiLCJyb2xlIjoiQ3VzdG9tZXIiLCJlbWFpbCI6Im1hcmlhQG1haWwuY29tIiwibmJmIjoxNzAzODg5OTkyLCJleHAiOjE3MDQwNjI3OTIsImlhdCI6MTcwMzg4OTk5MiwiaXNzIjoiUGhhdCIsImF1ZCI6IlBoYXRFQ29tbWVyY2UifQ.si4_8IdF4YVWH1IVabp1ryH-DAWbZC0K6BaDNNeD4bw
 Content-Type: application/json
 
 {
   "orderProducts": [
     {
-      "productId": "5993dbdf-4b60-4ca6-b068-655e02179119",
-      "quantity": 20
+      "productId": "369d6e67-97eb-454d-b4b7-7ade464be769",
+      "quantity": 2
+    },
+    {
+      "productId": "39fa38d1-b82e-4baf-8bcd-080cf9d884ce",
+      "quantity": 2
     }
   ],
   "orderStatus": "Pending"
@@ -14,22 +18,19 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5258/api/v1/orders/ HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJlYjliOWFhYS02MzYwLTRkZWEtYWQzNy0wNGFhZjA4MDVlOTQiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6InN1cGVyYWRtaW5AZ21haWwuY29tIiwibmJmIjoxNzAzNjYyNTM3LCJleHAiOjE3MDM4MzUzMzcsImlhdCI6MTcwMzY2MjUzNywiaXNzIjoiUGhhdCIsImF1ZCI6IlBoYXRFQ29tbWVyY2UifQ.b1EaxeZiVruALzroxwc9H7aGeLRzwh-FWQQwBxlQnMg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIzNDdhYTBiYS1mYWZhLTRkMTctYTE2Ny1jN2JiNzE5MDRiZjUiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6InN1cGVyYWRtaW5AZ21haWwuY29tIiwibmJmIjoxNzAzODcyMjExLCJleHAiOjE3MDQwNDUwMTEsImlhdCI6MTcwMzg3MjIxMSwiaXNzIjoiUGhhdCIsImF1ZCI6IlBoYXRFQ29tbWVyY2UifQ.FmzdnT4Pc67ZZL2-KzzXcir1AAODx8FDqYMUwG_m_mE
 
 ###
 GET http://localhost:5258/api/v1/orders/30eba6d7-e45c-4d6a-a40f-569d45f5508f HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIzZTI2YWM2Mi01YTE5LTQ3NjktODI0ZC1mYzMwMWY2MzY3MzIiLCJyb2xlIjoiQ3VzdG9tZXIiLCJlbWFpbCI6Im1hcmlhQG1haWwuY29tIiwibmJmIjoxNzAzNjkxODIyLCJleHAiOjE3MDM4NjQ2MjIsImlhdCI6MTcwMzY5MTgyMiwiaXNzIjoiUGhhdCIsImF1ZCI6IlBoYXRFQ29tbWVyY2UifQ.LYD2rUm28B_ipQ32d_MTaBxWUpy-ZX0GO1b5a6iktNY
 
 ###
-GET http://localhost:5258/api/v1/orders/user/0cf0f8e7-6292-408e-87ac-fad7c906d72c HTTP/1.1
+GET http://localhost:5258/api/v1/orders/user/b3f94bc7-40bb-4c2a-8666-fe2c918f79a4 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJiM2Y5NGJjNy00MGJiLTRjMmEtODY2Ni1mZTJjOTE4Zjc5YTQiLCJyb2xlIjoiQ3VzdG9tZXIiLCJlbWFpbCI6Im1hcmlhQG1haWwuY29tIiwibmJmIjoxNzAzODkxMTY1LCJleHAiOjE3MDQwNjM5NjUsImlhdCI6MTcwMzg5MTE2NSwiaXNzIjoiUGhhdCIsImF1ZCI6IlBoYXRFQ29tbWVyY2UifQ.1lt4g9Ep4Py540XrPQndk35fuAsFvT54on15X8Vonn8
 
 ###
 DELETE http://localhost:5258/api/v1/orders/0d0e512d-5714-4612-afa3-7997336759fc HTTP/1.1
 
 ###
-PATCH http://localhost:5258/api/v1/orders/a9c113b7-398e-4883-871b-2ddfb4570036 HTTP/1.1
-Content-Type: application/json
-
-{
-  "OrderStatus": "Shipping"
-}
+PATCH http://localhost:5258/api/v1/orders/cancel-order/719479fc-4b7e-4f61-b274-a81af20efd2f HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJiM2Y5NGJjNy00MGJiLTRjMmEtODY2Ni1mZTJjOTE4Zjc5YTQiLCJyb2xlIjoiQ3VzdG9tZXIiLCJlbWFpbCI6Im1hcmlhQG1haWwuY29tIiwibmJmIjoxNzAzODg5OTkyLCJleHAiOjE3MDQwNjI3OTIsImlhdCI6MTcwMzg4OTk5MiwiaXNzIjoiUGhhdCIsImF1ZCI6IlBoYXRFQ29tbWVyY2UifQ.si4_8IdF4YVWH1IVabp1ryH-DAWbZC0K6BaDNNeD4bw

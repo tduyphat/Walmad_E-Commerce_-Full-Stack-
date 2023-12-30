@@ -30,7 +30,7 @@ public class OrderRepo : BaseRepo<Order>, IOrderRepo
                         foundProduct.Inventory -= orderProduct.Quantity;
                         Console.WriteLine($"AFTER ____ {foundProduct.Inventory}");
                         _products.Update(foundProduct);
-                        _databaseContext.SaveChangesAsync();
+                        _databaseContext.SaveChanges();
                     }
                     else
                     {

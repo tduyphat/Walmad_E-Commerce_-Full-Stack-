@@ -129,4 +129,11 @@ public class UserController : BaseController<User, UserReadDTO, UserCreateDTO, U
     {
         return Ok(_service.EmailAvailable(email));
     }
+
+    [Authorize(Roles = "Admin")]
+    [HttpPatch("update-role/{id:guid}")]
+    public ActionResult<UserReadDTO> UpdateRole([FromRoute] Guid id, [FromBody] UserRoleUpdateDTO userRoleUpdateDTO)
+    {
+        return Ok(_service.UpdateRole(id, userRoleUpdateDTO));
+    }
 }

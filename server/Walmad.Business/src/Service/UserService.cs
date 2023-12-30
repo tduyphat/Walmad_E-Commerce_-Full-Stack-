@@ -17,8 +17,9 @@ public class UserService : BaseService<User, UserReadDTO, UserCreateDTO, UserUpd
     public override UserReadDTO CreateOne(UserCreateDTO userCreateDto)
     {
         PasswordService.HashPassword(userCreateDto.Password, out string hashedPassword, out byte[] salt);
-        userCreateDto.Role = Role.Customer;
+        // userCreateDto.Role = Role.Customer;
         var user = _mapper.Map<UserCreateDTO, User>(userCreateDto);
+        user.Role = Role.Customer;
         user.Password = hashedPassword;
         user.Salt = salt;
         var result = _repo.CreateOne(user);
@@ -43,7 +44,7 @@ public class UserService : BaseService<User, UserReadDTO, UserCreateDTO, UserUpd
         var foundUser = _repo.GetOneById(id);
         if (foundUser is not null)
         {
-            userUpdateDto.Role = Role.Customer;
+            // userUpdateDto.Role = Role.Customer;
             var result = _repo.UpdateOne(_mapper.Map(userUpdateDto, foundUser));
             return _mapper.Map<User, UserReadDTO>(result);
         }
@@ -72,6 +73,20 @@ public class UserService : BaseService<User, UserReadDTO, UserCreateDTO, UserUpd
             user.Salt = newSalt;
             _repo.UpdateOne(user);
             return true;
+        }
+    }
+
+    public UserReadDTO UpdateRole(Guid id, UserRoleUpdateDTO userRoleUpdateDto)
+    {
+        var foundUser = _repo.GetOneById(id);
+        if (foundUser is not null)
+        {
+            var result = _repo.UpdateOne(_mapper.Map(userRoleUpdateDto, foundUser));
+            return _mapper.Map<User, UserReadDTO>(result);
+        }
+        else
+        {
+            throw CustomExeption.NotFoundException("Id not found");
         }
     }
 }

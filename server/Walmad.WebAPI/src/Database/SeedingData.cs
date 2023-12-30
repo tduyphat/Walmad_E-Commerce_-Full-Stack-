@@ -35,25 +35,9 @@ public class SeedingData
                 Price = (decimal)(i * 10),
                 Description = $"Description for {category.Name} Product {i}",
                 CategoryId = category.Id,
-                // Images = new List<ProductImage>
-                //     {
-                //         new ProductImage { Id = Guid.NewGuid(), CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow, Url = "https://picsum.photos/200" }
-                //     },
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
             };
-
-            // var productImage = new ProductImage
-            // {
-            //     Id = Guid.NewGuid(),
-            //     CreatedAt = DateTime.UtcNow,
-            //     UpdatedAt = DateTime.UtcNow,
-            //     Url = "https://picsum.photos/200",
-            //     ProductId = product.Id  // Set the product ID here
-            // };
-
-            // productImages.Add(productImage);
-            // product.Images = productImages;
 
             products.Add(product);
         }
