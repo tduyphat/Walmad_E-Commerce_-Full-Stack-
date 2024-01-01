@@ -5,12 +5,31 @@ namespace Walmad.WebAPI.src.Database;
 
 public class SeedingData
 {
-    private static Category category1 = new Category { Id = Guid.NewGuid(), Image = "https://picsum.photos/200", Name = "Electronic", CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow };
-    private static Category category2 = new Category { Id = Guid.NewGuid(), Image = "https://picsum.photos/200", Name = "Clothing", CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow };
-    private static Category category3 = new Category { Id = Guid.NewGuid(), Image = "https://picsum.photos/200", Name = "Home Decor", CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow };
-    private static Category category4 = new Category { Id = Guid.NewGuid(), Image = "https://picsum.photos/200", Name = "Books", CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow };
-    private static Category category5 = new Category { Id = Guid.NewGuid(), Image = "https://picsum.photos/200", Name = "Sports", CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow };
-    private static Category category6 = new Category { Id = Guid.NewGuid(), Image = "https://picsum.photos/200", Name = "Toys", CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow };
+    private static Random random = new Random();
+
+    private static int GetRandomNumber()
+    {
+        return random.Next(1, 11);
+    }
+
+    private static int GetRandomNumberForImage()
+    {
+        return random.Next(100, 1000);
+    }
+
+    private static int RandomNumber1 = GetRandomNumber();
+    private static int RandomNumber2 = GetRandomNumber();
+    private static int RandomNumber3 = GetRandomNumber();
+    private static int RandomNumber4 = GetRandomNumber();
+    private static int RandomNumber5 = GetRandomNumber();
+    private static int RandomNumber6 = GetRandomNumber();
+
+    private static Category category1 = new Category { Id = Guid.NewGuid(), Image = $"https://picsum.photos/200/?random={RandomNumber1}", Name = "Electronic", CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow };
+    private static Category category2 = new Category { Id = Guid.NewGuid(), Image = $"https://picsum.photos/200/?random={RandomNumber2}", Name = "Clothing", CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow };
+    private static Category category3 = new Category { Id = Guid.NewGuid(), Image = $"https://picsum.photos/200/?random={RandomNumber3}", Name = "Home Decor", CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow };
+    private static Category category4 = new Category { Id = Guid.NewGuid(), Image = $"https://picsum.photos/200/?random={RandomNumber4}", Name = "Books", CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow };
+    private static Category category5 = new Category { Id = Guid.NewGuid(), Image = $"https://picsum.photos/200/?random={RandomNumber5}", Name = "Sports", CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow };
+    private static Category category6 = new Category { Id = Guid.NewGuid(), Image = $"https://picsum.photos/200/?random={RandomNumber6}", Name = "Toys", CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow };
 
     public static List<Category> GetCategories()
     {
@@ -72,7 +91,7 @@ public class SeedingData
                     Id = Guid.NewGuid(),
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
-                    Url = "https://picsum.photos/200",
+                    Url = $"https://picsum.photos/200/?random={GetRandomNumberForImage()}",
                     ProductId = product.Id
                 };
                 productImages.Add(productImage);
@@ -94,7 +113,7 @@ public class SeedingData
                 Name = "SuperAdmin",
                 Email = "superadmin@gmail.com",
                 Password = hashedPassword,
-                Avatar = "https://picsum.photos/200",
+                Avatar = $"https://picsum.photos/200/?random={GetRandomNumberForImage()}",
                 Salt = salt,
                 Role = Role.Admin,
                 AddressLine1 = "Olympiakatu 12",

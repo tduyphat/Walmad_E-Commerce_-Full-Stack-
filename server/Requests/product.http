@@ -16,7 +16,7 @@ Content-Type: application/json
   "categoryId": "b6ca78a9-37fd-4ad7-ae19-94108cd09654",
   "images": [
     {
-      "url": "https://picsum.photos/200"
+      "url": "https://picsum.photos/200/?random=1"
     }
   ]
 }
@@ -33,7 +33,7 @@ Content-Type: application/json
   "categoryId": "01e6b770-207c-40e2-8f4a-fcf9253d8a04",
   "images": [
     {
-      "url": "https://picsum.photos/200"
+      "url": "https://picsum.photos/200/?random=1"
     }
   ]
 }

@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
   "name": "Clothing",
-  "image": "https://picsum.photos/200"
+  "image": "https://picsum.photos/200/?random=1"
 }
 
 ###
@@ -15,6 +15,6 @@ Content-Type: application/json
 
 {
   "name": "Beverage",
-  "image": "https://picsum.photos/200"
+  "image": "https://picsum.photos/200/?random=1"
 }
 
