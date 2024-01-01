@@ -17,8 +17,14 @@ public class ReviewRepo : BaseRepo<Review>, IReviewRepo
         return _data.Include("User").Include("Product").Skip(options.Offset).Take(options.Limit).ToArray();
     }
 
+    public override Review? GetOneById(Guid id)
+    {
+        var allData = _data.Include("User");
+        return allData.FirstOrDefault(order => order.Id == id);
+    }
+
     public IEnumerable<Review> GetByProduct(Guid productId)
     {
-        return _data.Where(reviews => reviews.Product.Id == productId);
+        return _data.Include("User").Include("Product").Where(reviews => reviews.Product.Id == productId);
     }
 }

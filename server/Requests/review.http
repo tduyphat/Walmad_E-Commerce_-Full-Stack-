@@ -1,16 +1,20 @@
 POST http://localhost:5258/api/v1/reviews HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI2YmUwYmRhZC0wYzAxLTRiMzUtYjhlYS04ZmFjMGJkOTg5MDgiLCJyb2xlIjoiQ3VzdG9tZXIiLCJlbWFpbCI6Im1hcmlhQG1haWwuY29tIiwibmJmIjoxNzAzNzUzMTQ0LCJleHAiOjE3MDM5MjU5NDQsImlhdCI6MTcwMzc1MzE0NCwiaXNzIjoiUGhhdCIsImF1ZCI6IlBoYXRFQ29tbWVyY2UifQ.4uKoDUMxUlpJxdB4_wdYu1NJpk-6-nKyTh0iehwboYw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJiM2Y5NGJjNy00MGJiLTRjMmEtODY2Ni1mZTJjOTE4Zjc5YTQiLCJyb2xlIjoiQ3VzdG9tZXIiLCJlbWFpbCI6Im1hcmlhQG1haWwuY29tIiwibmJmIjoxNzA0MDM3OTc5LCJleHAiOjE3MDQyMTA3NzksImlhdCI6MTcwNDAzNzk3OSwiaXNzIjoiUGhhdCIsImF1ZCI6IlBoYXRFQ29tbWVyY2UifQ.K6ck67LwRk5hOS9Cno4Hj6YMY5UNP_IbwDOgsiwOxKc
 
 {
   "rating": 3,
   "content": "good",
-  "productID": "5993dbdf-4b60-4ca6-b068-655e02179119"
+  "productID": "7d8caada-ec7b-4b2e-92f3-acf6e93a3aa0"
 }
 
 ###
-GET http://localhost:5258/api/v1/reviews HTTP/1.1
+GET http://localhost:5258/api/v1/reviews/36d0be97-66f1-4dd0-8abc-be7f0156afa4 HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJlYjliOWFhYS02MzYwLTRkZWEtYWQzNy0wNGFhZjA4MDVlOTQiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6InN1cGVyYWRtaW5AZ21haWwuY29tIiwibmJmIjoxNzAzMzU4NTMxLCJleHAiOjE3MDM1MzEzMzEsImlhdCI6MTcwMzM1ODUzMSwiaXNzIjoiUGhhdCIsImF1ZCI6IlBoYXRFQ29tbWVyY2UifQ.MvcqTi__CbKm89L5O4EKvRCu0pA6wAgrEjN-rSybR30
 
 ###
 GET http://localhost:5258/api/v1/reviews/a4ea088d-f752-48d6-8929-c77bee70d853 HTTP/1.1
+
+###
+DELETE http://localhost:5258/api/v1/reviews/af21effa-e23c-42fe-9164-22dac8d3eb27 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIzMmQwMmFlMC1lNzExLTQwZDMtOTAwNy1kODZlMjQ0NDY1NWIiLCJyb2xlIjoiQ3VzdG9tZXIiLCJlbWFpbCI6Im1hcmlhQG1haWwuY29tIiwibmJmIjoxNzA0MTAxMTEwLCJleHAiOjE3MDQyNzM5MTAsImlhdCI6MTcwNDEwMTExMCwiaXNzIjoiUGhhdCIsImF1ZCI6IlBoYXRFQ29tbWVyY2UifQ.-N6UDAmsVoX5lv7kuXfEfz1JM9cbw-rixj-XTdeHUEE
