@@ -37,6 +37,7 @@ This project was done as a final project of the Full Stack Program at [Integrify
 
 - **Frontend**:
 
+````
 src/
 ┣ components/
 ┃ ┣ AddressForm.tsx
@@ -142,9 +143,11 @@ src/
 ┣ reportWebVitals.ts
 ┣ setupTests.ts
 ┗ ThemeProvider.tsx
+````
 
 - **Backend**:
 
+````
 Walmad.Business/
 ┣ src/
 ┃ ┣ Abstraction/
@@ -179,7 +182,8 @@ Walmad.Business/
 ┃   ┣ MapperProfile.cs
 ┃   ┗ PasswordService.cs
 ┗ Walmad.Business.csproj
-
+````
+````
 Walmad.Controller/
 ┣ src/
 ┃ ┗ Controller/
@@ -192,7 +196,9 @@ Walmad.Controller/
 ┃   ┣ ReviewController.cs
 ┃   ┗ UserController.cs
 ┗ Walmad.Controller.csproj
+````
 
+````
 Walmad.Core/
 ┣ src/
 ┃ ┣ Abstraction/
@@ -218,7 +224,9 @@ Walmad.Core/
 ┃   ┣ GetAllParams.cs
 ┃   ┗ PasswordChangeForm.cs
 ┗ Walmad.Core.csproj
+````
 
+````
 Walmad.WebAPI/
 ┣ src/
 ┃ ┣ Authorization/
@@ -245,7 +253,9 @@ Walmad.WebAPI/
 ┣ appsettings.Development.json
 ┣ appsettings.json
 ┗ Walmad.WebAPI.csproj
+````
 
+````
 Walmad.Test/
 ┣ src/
 ┃ ┣ AuthServiceTest.cs
@@ -256,6 +266,7 @@ Walmad.Test/
 ┃ ┗ UserServiceTest.cs
 ┣ GlobalUsings.cs
 ┗ Walmad.Test.csproj
+````
 
 ## Tables Relationship
 
