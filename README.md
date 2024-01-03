@@ -9,12 +9,11 @@
 ![EF Core](https://img.shields.io/badge/EF%20Core-v.7-cyan)
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 
-This project was done as a final project of the Full Stack Program at [Integrify](https://www.integrify.io/). It reflects the functionalities of a typical e-commerce application. The data is fetched and can be created, deleted, updated from an API which is running on ASP.NET Core. The application comes with an authentication system with defined roles for users. Guests can interact with the products by filtering, searching, sorting, or adding, removing them from their cart. Register as a customer allows you to place an order, manage your order history, posting a review on a product. While the admin can perform CRUD operations on the products, users and all the orders in their own dashboard.
+This project was done as a final project of the Full Stack Program at [Integrify](https://www.integrify.io/). It reflects the functionalities of a typical e-commerce application. The data is fetched and can be created, deleted, updated from an API which is running on ASP.NET Core. The application comes with an authentication system with defined roles for users. Guests can interact with the products by filtering, searching, sorting, or adding, removing them from their cart. Register as a customer allows you to place an order, manage your order history, post a review on a product. While the admin can perform CRUD operations on the products, users and all the orders in their own dashboard.
 
-- Frontend: SASS, TypeScript, React, Material-UI, Redux Toolkit
-- Backend: ASP.NET Core, Entity Framework Core, PostgreSQL
-- Testing: Jest for frontend and XUnit, Moq for backend
-- Deployment: Netlify for frontend and Azure, ElephantSQL for backend
+**NOTE**: This repository only contains the backend of the application. The frontend repository can be found [here](https://github.com/tduyphat/fs16_6-frontend-project)
+
+Link to deployed page of the frontend: https://phat-tran-walmad.netlify.app/
 
 ## Table of Contents
 
@@ -323,7 +322,7 @@ git clone https://github.com/tduyphat/fs16_CSharp-FullStack
 }
 ```
 
-The application is currently using `RemoteDb` value to connect to an external database. See this [documentation]("https://www.elephantsql.com/docs/index.html") on ElephantSQL to see how you can obtain a connect string.
+The application is currently using `RemoteDb` value to connect to an external database. See this [documentation](https://www.elephantsql.com/docs/index.html) on ElephantSQL to see how you can obtain a connect string.
 
 4. If there is already a folder `Migrations` in the Web API layer, delete it. Run this command to create a new `Migrations` folder, which stores the snapshot of all the database context changes:
 
@@ -343,7 +342,7 @@ dotnet ef database update
 dotnet watch
 ```
 
-7. In the front-end directory, create a file called `.env` in the root of the project. Add this value: `REACT_APP_API_URL = "http://localhost:5258/"` (the host number could be different). If you want to use the Google Sign In feature in your local machine create this value: `REACT_APP_CLIENT_ID = "<YOUR_CLIENT_ID>"`. Check out this [documentation](https://support.google.com/googleapi/answer/6158849?hl=en) to see how you can obtain a client ID from Google.
+7. In the front-end directory, create a file called `.env` in the root of the project. Add this value: `REACT_APP_API_URL = "http://localhost:5258/"` (the port number can be different). If you want to use the Google Sign In feature in your local machine create this value: `REACT_APP_CLIENT_ID = "<YOUR_CLIENT_ID>"`. Check out this [documentation](https://support.google.com/googleapi/answer/6158849?hl=en) to see how you can obtain a client ID from Google.
 
 8. Install all the packages in the front-end:
 
