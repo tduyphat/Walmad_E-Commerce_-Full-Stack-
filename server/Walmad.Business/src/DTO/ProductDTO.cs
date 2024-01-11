@@ -24,10 +24,10 @@ public class ProductCreateDTO
 
 public class ProductUpdateDTO
 {
-  public int Inventory { get; set; }
-  public string Title { get; set; }
-  public decimal Price { get; set; }
-  public string Description { get; set; }
+  public int? Inventory { get; set; }
+  public string? Title { get; set; }
+  public decimal? Price { get; set; }
+  public string? Description { get; set; }
   public Guid categoryId { get; set; }
-  public IEnumerable<ProductImageCreateDTO> Images { get; set; }
+  public IEnumerable<ProductImageCreateDTO>? Images { get; set; }
 }

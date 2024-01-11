@@ -59,7 +59,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJlYjliO
 GET http://localhost:5258/api/v1/users/0cf0f8e7-6292-408e-87ac-fad7c906d72c HTTP/1.1 HTTP/1.1
 
 ###
-DELETE http://localhost:5258/api/v1/users/f7f20d30-ed0f-4a71-b4e1-65ff8e228398 HTTP/1.1
+DELETE http://localhost:5258/api/v1/users/4875fe6e-e8d2-430d-9bfb-0395fe7b6c10 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI0ODc1ZmU2ZS1lOGQyLTQzMGQtOWJmYi0wMzk1ZmU3YjZjMTAiLCJyb2xlIjoiQ3VzdG9tZXIiLCJlbWFpbCI6Im1hcmlhQG1haWwuY29tIiwibmJmIjoxNzA1MDEyNDk3LCJleHAiOjE3MDUxODUyOTcsImlhdCI6MTcwNTAxMjQ5NywiaXNzIjoiUGhhdCIsImF1ZCI6IlBoYXRFQ29tbWVyY2UifQ.0aGh4LLL5vWkINF5skEva_NfrIa3zB4DF4bKMDdzUZ0
 
 ###
 PATCH http://localhost:5258/api/v1/users/updatepassword/432eec7b-a3b3-4cc4-b5ee-bea439daa71b HTTP/1.1

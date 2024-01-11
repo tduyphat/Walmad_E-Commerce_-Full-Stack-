@@ -16,6 +16,6 @@ public class CategoryCreateDTO
 
 public class CategoryUpdateDTO
 {
-  public string Name { get; set; }
-  public string Image { get; set; }
+  public string? Name { get; set; }
+  public string? Image { get; set; }
 }

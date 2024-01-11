@@ -19,6 +19,6 @@ public class ReviewCreateDTO
 
 public class ReviewUpdateDTO
 {
-    public byte Rating { get; set; }
-    public string Content { get; set; }
+    public byte? Rating { get; set; }
+    public string? Content { get; set; }
 }

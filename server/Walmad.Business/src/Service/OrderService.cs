@@ -29,7 +29,7 @@ public class OrderService : BaseService<Order, OrderReadDTO, OrderCreateDTO, Ord
         else
         {
             TimeSpan timeDifference = currentDate - foundOrder.CreatedAt;
-            if (timeDifference <= TimeSpan.FromHours(2))
+            if (timeDifference <= TimeSpan.FromHours(24))
             {
                 foundOrder.OrderStatus = OrderStatus.Cancelled;
                 _repo.UpdateOne(foundOrder);
