@@ -92,7 +92,7 @@ builder.Services.AddTransient<ExceptionHandlerMiddleware>();
 builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);
 
 //Add database context service
-var dataSourceBuilder = new NpgsqlDataSourceBuilder(builder.Configuration.GetConnectionString("LocalDb"));
+var dataSourceBuilder = new NpgsqlDataSourceBuilder(builder.Configuration.GetConnectionString("RemoteDb"));
 dataSourceBuilder.MapEnum<Role>();
 dataSourceBuilder.MapEnum<OrderStatus>();
 var dataSource = dataSourceBuilder.Build();
